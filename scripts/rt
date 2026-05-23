@@ -1,0 +1,2544 @@
+==================================================
+Training with RANDOM embeddings
+==================================================
+Namespace(batch_size=32, brnn=False, brnn_merge='concat', critic_pretrain_epochs=5, data='/mnt/storage/divya/exam/rnndata/rprocessed_all-train.pt', dropout=0, end_epoch=15, eval=False, eval_sample=False, freeze_src_bert=False, freeze_tgt_bert=False, gpus=[0], input_feed=1, layers=1, learning_rate_decay=0.5, load_from=None, log_interval=100, lr=0.001, max_generator_batches=32, max_grad_norm=5, max_predict_length=50, no_update=False, optim='adam', param_init=0.1, pert_func=None, pert_param=None, reinforce_lr=0.0001, rnn_size=500, save_dir='/mnt/storage/divya/exam/rmodel', seed=3435, src_bert_model='bert-base-uncased', start_decay_at=5, start_epoch=1, start_reinforce=11, sup_train_on_bandit=False, tgt_bert_model='bert-base-uncased', use_bert_src=False, use_bert_tgt=False, word_vec_size=500)
+Loading data from "/mnt/storage/divya/exam/rnndata/rprocessed_all-train.pt"
+
+================================================
+Embedding Configuration
+================================================
+Source embeddings : RANDOM
+Target embeddings : RANDOM
+================================================
+
+ * vocabulary size. source = 50004; target = 50004
+ * number of XENT training sentences. 240033
+ * number of PG training sentences. 240033
+ * maximum batch size. 32
+
+Building model...
+
+Encoder embedding dim: 500
+Decoder embedding dim: 500
+Skipping initialization for: encoder.word_lut.weight
+Skipping initialization for: decoder.word_lut.weight
+* number of parameters: 80814004
+NMTModel(
+  (encoder): Encoder(
+    (word_lut): Embedding(50004, 500, padding_idx=0)
+    (rnn): LSTM(500, 500)
+  )
+  (decoder): Decoder(
+    (word_lut): Embedding(50004, 500, padding_idx=0)
+    (rnn): StackedLSTM(
+      (dropout): Dropout(p=0, inplace=False)
+      (layers): ModuleList(
+        (0): LSTMCell(1000, 500)
+      )
+    )
+    (attn): GlobalAttention(
+      (linear_in): Linear(in_features=500, out_features=500, bias=False)
+      (sm): Softmax(dim=None)
+      (linear_out): Linear(in_features=1000, out_features=500, bias=False)
+      (tanh): Tanh()
+    )
+    (dropout): Dropout(p=0, inplace=False)
+  )
+  (generator): BaseGenerator(
+    (generator): Linear(in_features=500, out_features=50004, bias=True)
+  )
+)
+
+* XENT epoch *
+Model optim lr: 0.001
+/Data/divya/Part1/nmt/lib/model/GlobalAttention.py:30: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  attn = self.sm(attn)
+/Data/divya/Part1/nmt/lib/metric/Loss.py:8: UserWarning: Implicit dimension choice for log_softmax has been deprecated. Change the call to include dim=X as an argument.
+  log_dist = F.log_softmax(logits)
+Epoch   1,    100/7502 batches;
+                      perplexity:  3256.46;  3361 tokens/s; 0:00:19 elapsed
+Epoch   1,    200/7502 batches;
+                      perplexity:  1505.97;  3625 tokens/s; 0:00:37 elapsed
+Epoch   1,    300/7502 batches;
+                      perplexity:  1141.37;  3716 tokens/s; 0:00:55 elapsed
+Epoch   1,    400/7502 batches;
+                      perplexity:   946.97;  3557 tokens/s; 0:01:13 elapsed
+Epoch   1,    500/7502 batches;
+                      perplexity:   820.89;  3614 tokens/s; 0:01:31 elapsed
+Epoch   1,    600/7502 batches;
+                      perplexity:   719.88;  3497 tokens/s; 0:01:49 elapsed
+Epoch   1,    700/7502 batches;
+                      perplexity:   612.44;  3590 tokens/s; 0:02:07 elapsed
+Epoch   1,    800/7502 batches;
+                      perplexity:   550.20;  3549 tokens/s; 0:02:26 elapsed
+Epoch   1,    900/7502 batches;
+                      perplexity:   533.90;  3569 tokens/s; 0:02:44 elapsed
+Epoch   1,   1000/7502 batches;
+                      perplexity:   468.70;  3566 tokens/s; 0:03:02 elapsed
+Epoch   1,   1100/7502 batches;
+                      perplexity:   424.71;  3587 tokens/s; 0:03:20 elapsed
+Epoch   1,   1200/7502 batches;
+                      perplexity:   392.93;  3528 tokens/s; 0:03:39 elapsed
+Epoch   1,   1300/7502 batches;
+                      perplexity:   382.24;  3580 tokens/s; 0:03:57 elapsed
+Epoch   1,   1400/7502 batches;
+                      perplexity:   357.41;  3583 tokens/s; 0:04:15 elapsed
+Epoch   1,   1500/7502 batches;
+                      perplexity:   331.10;  3532 tokens/s; 0:04:34 elapsed
+Epoch   1,   1600/7502 batches;
+                      perplexity:   312.84;  3484 tokens/s; 0:04:53 elapsed
+Epoch   1,   1700/7502 batches;
+                      perplexity:   293.75;  3446 tokens/s; 0:05:11 elapsed
+Epoch   1,   1800/7502 batches;
+                      perplexity:   295.32;  3523 tokens/s; 0:05:30 elapsed
+Epoch   1,   1900/7502 batches;
+                      perplexity:   275.58;  3550 tokens/s; 0:05:48 elapsed
+Epoch   1,   2000/7502 batches;
+                      perplexity:   257.69;  3346 tokens/s; 0:06:07 elapsed
+Epoch   1,   2100/7502 batches;
+                      perplexity:   246.37;  3361 tokens/s; 0:06:26 elapsed
+Epoch   1,   2200/7502 batches;
+                      perplexity:   245.32;  3474 tokens/s; 0:06:45 elapsed
+Epoch   1,   2300/7502 batches;
+                      perplexity:   231.08;  3158 tokens/s; 0:07:05 elapsed
+Epoch   1,   2400/7502 batches;
+                      perplexity:   219.94;  3292 tokens/s; 0:07:25 elapsed
+Epoch   1,   2500/7502 batches;
+                      perplexity:   210.17;  3541 tokens/s; 0:07:43 elapsed
+Epoch   1,   2600/7502 batches;
+                      perplexity:   198.57;  3435 tokens/s; 0:08:03 elapsed
+Epoch   1,   2700/7502 batches;
+                      perplexity:   199.03;  3459 tokens/s; 0:08:22 elapsed
+Epoch   1,   2800/7502 batches;
+                      perplexity:   191.22;  3490 tokens/s; 0:08:40 elapsed
+Epoch   1,   2900/7502 batches;
+                      perplexity:   187.37;  3550 tokens/s; 0:08:59 elapsed
+Epoch   1,   3000/7502 batches;
+                      perplexity:   182.74;  3626 tokens/s; 0:09:17 elapsed
+Epoch   1,   3100/7502 batches;
+                      perplexity:   178.18;  3516 tokens/s; 0:09:35 elapsed
+Epoch   1,   3200/7502 batches;
+                      perplexity:   174.26;  3609 tokens/s; 0:09:53 elapsed
+Epoch   1,   3300/7502 batches;
+                      perplexity:   158.61;  3506 tokens/s; 0:10:11 elapsed
+Epoch   1,   3400/7502 batches;
+                      perplexity:   164.67;  3190 tokens/s; 0:10:32 elapsed
+Epoch   1,   3500/7502 batches;
+                      perplexity:   153.59;  3460 tokens/s; 0:10:50 elapsed
+Epoch   1,   3600/7502 batches;
+                      perplexity:   152.56;  3557 tokens/s; 0:11:08 elapsed
+Epoch   1,   3700/7502 batches;
+                      perplexity:   150.33;  3541 tokens/s; 0:11:27 elapsed
+Epoch   1,   3800/7502 batches;
+                      perplexity:   148.26;  3395 tokens/s; 0:11:45 elapsed
+Epoch   1,   3900/7502 batches;
+                      perplexity:   139.82;  3416 tokens/s; 0:12:04 elapsed
+Epoch   1,   4000/7502 batches;
+                      perplexity:   138.75;  3592 tokens/s; 0:12:22 elapsed
+Epoch   1,   4100/7502 batches;
+                      perplexity:   139.29;  3563 tokens/s; 0:12:41 elapsed
+Epoch   1,   4200/7502 batches;
+                      perplexity:   135.93;  3517 tokens/s; 0:12:59 elapsed
+Epoch   1,   4300/7502 batches;
+                      perplexity:   130.48;  3268 tokens/s; 0:13:19 elapsed
+Epoch   1,   4400/7502 batches;
+                      perplexity:   126.18;  3482 tokens/s; 0:13:38 elapsed
+Epoch   1,   4500/7502 batches;
+                      perplexity:   125.72;  3632 tokens/s; 0:13:56 elapsed
+Epoch   1,   4600/7502 batches;
+                      perplexity:   122.46;  3524 tokens/s; 0:14:14 elapsed
+Epoch   1,   4700/7502 batches;
+                      perplexity:   123.85;  3580 tokens/s; 0:14:32 elapsed
+Epoch   1,   4800/7502 batches;
+                      perplexity:   122.79;  3490 tokens/s; 0:14:50 elapsed
+Epoch   1,   4900/7502 batches;
+                      perplexity:   117.97;  3378 tokens/s; 0:15:10 elapsed
+Epoch   1,   5000/7502 batches;
+                      perplexity:   116.58;  3392 tokens/s; 0:15:29 elapsed
+Epoch   1,   5100/7502 batches;
+                      perplexity:   114.68;  3581 tokens/s; 0:15:47 elapsed
+Epoch   1,   5200/7502 batches;
+                      perplexity:   113.25;  3529 tokens/s; 0:16:05 elapsed
+Epoch   1,   5300/7502 batches;
+                      perplexity:   108.59;  3505 tokens/s; 0:16:23 elapsed
+Epoch   1,   5400/7502 batches;
+                      perplexity:   108.97;  3540 tokens/s; 0:16:42 elapsed
+Epoch   1,   5500/7502 batches;
+                      perplexity:   104.38;  3609 tokens/s; 0:17:00 elapsed
+Epoch   1,   5600/7502 batches;
+                      perplexity:   107.46;  3605 tokens/s; 0:17:17 elapsed
+Epoch   1,   5700/7502 batches;
+                      perplexity:   104.51;  3558 tokens/s; 0:17:36 elapsed
+Epoch   1,   5800/7502 batches;
+                      perplexity:   101.00;  3408 tokens/s; 0:17:54 elapsed
+Epoch   1,   5900/7502 batches;
+                      perplexity:   102.47;  3508 tokens/s; 0:18:13 elapsed
+Epoch   1,   6000/7502 batches;
+                      perplexity:   100.72;  3217 tokens/s; 0:18:33 elapsed
+Epoch   1,   6100/7502 batches;
+                      perplexity:    98.74;  3393 tokens/s; 0:18:52 elapsed
+Epoch   1,   6200/7502 batches;
+                      perplexity:   100.71;  3339 tokens/s; 0:19:12 elapsed
+Epoch   1,   6300/7502 batches;
+                      perplexity:   100.17;  3453 tokens/s; 0:19:30 elapsed
+Epoch   1,   6400/7502 batches;
+                      perplexity:    91.01;  3657 tokens/s; 0:19:48 elapsed
+Epoch   1,   6500/7502 batches;
+                      perplexity:    94.02;  3600 tokens/s; 0:20:06 elapsed
+Epoch   1,   6600/7502 batches;
+                      perplexity:    92.44;  3607 tokens/s; 0:20:24 elapsed
+Epoch   1,   6700/7502 batches;
+                      perplexity:    90.62;  3611 tokens/s; 0:20:42 elapsed
+Epoch   1,   6800/7502 batches;
+                      perplexity:    89.98;  3426 tokens/s; 0:21:01 elapsed
+Epoch   1,   6900/7502 batches;
+                      perplexity:    88.22;  3397 tokens/s; 0:21:20 elapsed
+Epoch   1,   7000/7502 batches;
+                      perplexity:    88.25;  3424 tokens/s; 0:21:39 elapsed
+Epoch   1,   7100/7502 batches;
+                      perplexity:    85.04;  3336 tokens/s; 0:21:59 elapsed
+Epoch   1,   7200/7502 batches;
+                      perplexity:    87.82;  3451 tokens/s; 0:22:18 elapsed
+Epoch   1,   7300/7502 batches;
+                      perplexity:    84.38;  4113 tokens/s; 0:22:34 elapsed
+Epoch   1,   7400/7502 batches;
+                      perplexity:    84.39;  3382 tokens/s; 0:22:53 elapsed
+Epoch   1,   7500/7502 batches;
+                      perplexity:    84.89;  3610 tokens/s; 0:23:11 elapsed
+/Data/divya/Part1/nmt/lib/data/Dataset.py:55: UserWarning: volatile was removed and now has no effect. Use `with torch.no_grad():` instead.
+  b = Variable(b, volatile=self.eval)
+Train Loss: 5.2305 | Train PPL: 186.88
+Valid Loss: 2.9614 | Valid PPL: 19.33
+Validation sentence reward: 24.19
+Validation corpus reward: 13.54
+Save model as /mnt/storage/divya/exam/rmodel/model_1.pt
+
+* XENT epoch *
+Model optim lr: 0.001
+Epoch   2,    100/7502 batches;
+                      perplexity:    50.17;  3528 tokens/s; 0:23:38 elapsed
+Epoch   2,    200/7502 batches;
+                      perplexity:    50.58;  3453 tokens/s; 0:23:57 elapsed
+Epoch   2,    300/7502 batches;
+                      perplexity:    48.90;  3644 tokens/s; 0:24:15 elapsed
+Epoch   2,    400/7502 batches;
+                      perplexity:    52.38;  3474 tokens/s; 0:24:34 elapsed
+Epoch   2,    500/7502 batches;
+                      perplexity:    51.00;  3526 tokens/s; 0:24:52 elapsed
+Epoch   2,    600/7502 batches;
+                      perplexity:    50.73;  3586 tokens/s; 0:25:10 elapsed
+Epoch   2,    700/7502 batches;
+                      perplexity:    52.18;  3435 tokens/s; 0:25:29 elapsed
+Epoch   2,    800/7502 batches;
+                      perplexity:    51.80;  3564 tokens/s; 0:25:48 elapsed
+Epoch   2,    900/7502 batches;
+                      perplexity:    51.17;  3525 tokens/s; 0:26:06 elapsed
+Epoch   2,   1000/7502 batches;
+                      perplexity:    52.12;  3345 tokens/s; 0:26:26 elapsed
+Epoch   2,   1100/7502 batches;
+                      perplexity:    49.88;  3355 tokens/s; 0:26:45 elapsed
+Epoch   2,   1200/7502 batches;
+                      perplexity:    52.56;  3514 tokens/s; 0:27:04 elapsed
+Epoch   2,   1300/7502 batches;
+                      perplexity:    51.00;  3568 tokens/s; 0:27:22 elapsed
+Epoch   2,   1400/7502 batches;
+                      perplexity:    52.39;  3540 tokens/s; 0:27:40 elapsed
+Epoch   2,   1500/7502 batches;
+                      perplexity:    51.29;  3553 tokens/s; 0:27:59 elapsed
+Epoch   2,   1600/7502 batches;
+                      perplexity:    52.64;  3623 tokens/s; 0:28:17 elapsed
+Epoch   2,   1700/7502 batches;
+                      perplexity:    54.10;  3561 tokens/s; 0:28:35 elapsed
+Epoch   2,   1800/7502 batches;
+                      perplexity:    50.89;  3348 tokens/s; 0:28:54 elapsed
+Epoch   2,   1900/7502 batches;
+                      perplexity:    50.84;  3514 tokens/s; 0:29:13 elapsed
+Epoch   2,   2000/7502 batches;
+                      perplexity:    51.22;  3506 tokens/s; 0:29:31 elapsed
+Epoch   2,   2100/7502 batches;
+                      perplexity:    52.19;  3573 tokens/s; 0:29:49 elapsed
+Epoch   2,   2200/7502 batches;
+                      perplexity:    51.01;  3540 tokens/s; 0:30:08 elapsed
+Epoch   2,   2300/7502 batches;
+                      perplexity:    52.53;  3247 tokens/s; 0:30:28 elapsed
+Epoch   2,   2400/7502 batches;
+                      perplexity:    48.66;  3643 tokens/s; 0:30:45 elapsed
+Epoch   2,   2500/7502 batches;
+                      perplexity:    51.20;  3603 tokens/s; 0:31:03 elapsed
+Epoch   2,   2600/7502 batches;
+                      perplexity:    48.80;  3649 tokens/s; 0:31:21 elapsed
+Epoch   2,   2700/7502 batches;
+                      perplexity:    52.07;  3563 tokens/s; 0:31:39 elapsed
+Epoch   2,   2800/7502 batches;
+                      perplexity:    50.58;  3665 tokens/s; 0:31:57 elapsed
+Epoch   2,   2900/7502 batches;
+                      perplexity:    50.83;  3539 tokens/s; 0:32:15 elapsed
+Epoch   2,   3000/7502 batches;
+                      perplexity:    49.78;  3602 tokens/s; 0:32:33 elapsed
+Epoch   2,   3100/7502 batches;
+                      perplexity:    48.32;  3633 tokens/s; 0:32:51 elapsed
+Epoch   2,   3200/7502 batches;
+                      perplexity:    52.22;  3634 tokens/s; 0:33:09 elapsed
+Epoch   2,   3300/7502 batches;
+                      perplexity:    49.72;  3544 tokens/s; 0:33:27 elapsed
+Epoch   2,   3400/7502 batches;
+                      perplexity:    50.74;  3529 tokens/s; 0:33:46 elapsed
+Epoch   2,   3500/7502 batches;
+                      perplexity:    49.47;  3495 tokens/s; 0:34:05 elapsed
+Epoch   2,   3600/7502 batches;
+                      perplexity:    48.83;  3490 tokens/s; 0:34:23 elapsed
+Epoch   2,   3700/7502 batches;
+                      perplexity:    48.78;  3548 tokens/s; 0:34:41 elapsed
+Epoch   2,   3800/7502 batches;
+                      perplexity:    48.47;  3572 tokens/s; 0:34:59 elapsed
+Epoch   2,   3900/7502 batches;
+                      perplexity:    50.07;  3661 tokens/s; 0:35:17 elapsed
+Epoch   2,   4000/7502 batches;
+                      perplexity:    47.78;  3610 tokens/s; 0:35:34 elapsed
+Epoch   2,   4100/7502 batches;
+                      perplexity:    50.79;  3568 tokens/s; 0:35:53 elapsed
+Epoch   2,   4200/7502 batches;
+                      perplexity:    47.89;  3591 tokens/s; 0:36:10 elapsed
+Epoch   2,   4300/7502 batches;
+                      perplexity:    47.20;  3614 tokens/s; 0:36:29 elapsed
+Epoch   2,   4400/7502 batches;
+                      perplexity:    49.01;  3340 tokens/s; 0:36:48 elapsed
+Epoch   2,   4500/7502 batches;
+                      perplexity:    47.98;  3621 tokens/s; 0:37:05 elapsed
+Epoch   2,   4600/7502 batches;
+                      perplexity:    49.04;  3561 tokens/s; 0:37:24 elapsed
+Epoch   2,   4700/7502 batches;
+                      perplexity:    49.81;  3463 tokens/s; 0:37:43 elapsed
+Epoch   2,   4800/7502 batches;
+                      perplexity:    49.12;  3503 tokens/s; 0:38:01 elapsed
+Epoch   2,   4900/7502 batches;
+                      perplexity:    48.77;  3608 tokens/s; 0:38:19 elapsed
+Epoch   2,   5000/7502 batches;
+                      perplexity:    47.69;  3600 tokens/s; 0:38:37 elapsed
+Epoch   2,   5100/7502 batches;
+                      perplexity:    48.61;  3519 tokens/s; 0:38:56 elapsed
+Epoch   2,   5200/7502 batches;
+                      perplexity:    47.10;  3568 tokens/s; 0:39:14 elapsed
+Epoch   2,   5300/7502 batches;
+                      perplexity:    48.24;  3592 tokens/s; 0:39:32 elapsed
+Epoch   2,   5400/7502 batches;
+                      perplexity:    45.91;  3486 tokens/s; 0:39:50 elapsed
+Epoch   2,   5500/7502 batches;
+                      perplexity:    48.59;  3492 tokens/s; 0:40:09 elapsed
+Epoch   2,   5600/7502 batches;
+                      perplexity:    48.24;  3497 tokens/s; 0:40:28 elapsed
+Epoch   2,   5700/7502 batches;
+                      perplexity:    47.75;  3557 tokens/s; 0:40:46 elapsed
+Epoch   2,   5800/7502 batches;
+                      perplexity:    45.99;  3501 tokens/s; 0:41:04 elapsed
+Epoch   2,   5900/7502 batches;
+                      perplexity:    45.17;  3568 tokens/s; 0:41:22 elapsed
+Epoch   2,   6000/7502 batches;
+                      perplexity:    48.45;  3538 tokens/s; 0:41:40 elapsed
+Epoch   2,   6100/7502 batches;
+                      perplexity:    47.61;  3371 tokens/s; 0:42:00 elapsed
+Epoch   2,   6200/7502 batches;
+                      perplexity:    46.98;  3583 tokens/s; 0:42:17 elapsed
+Epoch   2,   6300/7502 batches;
+                      perplexity:    46.38;  3522 tokens/s; 0:42:36 elapsed
+Epoch   2,   6400/7502 batches;
+                      perplexity:    47.27;  3450 tokens/s; 0:42:54 elapsed
+Epoch   2,   6500/7502 batches;
+                      perplexity:    46.55;  3529 tokens/s; 0:43:13 elapsed
+Epoch   2,   6600/7502 batches;
+                      perplexity:    44.78;  3476 tokens/s; 0:43:31 elapsed
+Epoch   2,   6700/7502 batches;
+                      perplexity:    46.00;  3576 tokens/s; 0:43:50 elapsed
+Epoch   2,   6800/7502 batches;
+                      perplexity:    45.21;  3389 tokens/s; 0:44:09 elapsed
+Epoch   2,   6900/7502 batches;
+                      perplexity:    45.77;  3543 tokens/s; 0:44:27 elapsed
+Epoch   2,   7000/7502 batches;
+                      perplexity:    46.69;  3548 tokens/s; 0:44:45 elapsed
+Epoch   2,   7100/7502 batches;
+                      perplexity:    46.75;  3497 tokens/s; 0:45:04 elapsed
+Epoch   2,   7200/7502 batches;
+                      perplexity:    45.53;  3460 tokens/s; 0:45:23 elapsed
+Epoch   2,   7300/7502 batches;
+                      perplexity:    44.47;  3579 tokens/s; 0:45:41 elapsed
+Epoch   2,   7400/7502 batches;
+                      perplexity:    45.63;  3566 tokens/s; 0:45:59 elapsed
+Epoch   2,   7500/7502 batches;
+                      perplexity:    42.34;  3518 tokens/s; 0:46:18 elapsed
+Train Loss: 3.8919 | Train PPL: 49.00
+Valid Loss: 2.0997 | Valid PPL: 8.16
+Validation sentence reward: 29.85
+Validation corpus reward: 20.38
+Save model as /mnt/storage/divya/exam/rmodel/model_2.pt
+
+* XENT epoch *
+Model optim lr: 0.001
+Epoch   3,    100/7502 batches;
+                      perplexity:    23.04;  3655 tokens/s; 0:46:44 elapsed
+Epoch   3,    200/7502 batches;
+                      perplexity:    23.22;  3467 tokens/s; 0:47:03 elapsed
+Epoch   3,    300/7502 batches;
+                      perplexity:    23.77;  3596 tokens/s; 0:47:21 elapsed
+Epoch   3,    400/7502 batches;
+                      perplexity:    22.94;  3514 tokens/s; 0:47:39 elapsed
+Epoch   3,    500/7502 batches;
+                      perplexity:    24.30;  3726 tokens/s; 0:47:57 elapsed
+Epoch   3,    600/7502 batches;
+                      perplexity:    24.34;  3426 tokens/s; 0:48:16 elapsed
+Epoch   3,    700/7502 batches;
+                      perplexity:    24.80;  3394 tokens/s; 0:48:35 elapsed
+Epoch   3,    800/7502 batches;
+                      perplexity:    23.97;  3848 tokens/s; 0:48:52 elapsed
+Epoch   3,    900/7502 batches;
+                      perplexity:    25.00;  3394 tokens/s; 0:49:11 elapsed
+Epoch   3,   1000/7502 batches;
+                      perplexity:    25.39;  3617 tokens/s; 0:49:29 elapsed
+Epoch   3,   1100/7502 batches;
+                      perplexity:    25.51;  3606 tokens/s; 0:49:47 elapsed
+Epoch   3,   1200/7502 batches;
+                      perplexity:    26.65;  3535 tokens/s; 0:50:05 elapsed
+Epoch   3,   1300/7502 batches;
+                      perplexity:    26.19;  3575 tokens/s; 0:50:23 elapsed
+Epoch   3,   1400/7502 batches;
+                      perplexity:    25.73;  3524 tokens/s; 0:50:42 elapsed
+Epoch   3,   1500/7502 batches;
+                      perplexity:    26.69;  3585 tokens/s; 0:51:00 elapsed
+Epoch   3,   1600/7502 batches;
+                      perplexity:    26.08;  3541 tokens/s; 0:51:19 elapsed
+Epoch   3,   1700/7502 batches;
+                      perplexity:    26.97;  3525 tokens/s; 0:51:37 elapsed
+Epoch   3,   1800/7502 batches;
+                      perplexity:    26.11;  3410 tokens/s; 0:51:56 elapsed
+Epoch   3,   1900/7502 batches;
+                      perplexity:    25.88;  3408 tokens/s; 0:52:15 elapsed
+Epoch   3,   2000/7502 batches;
+                      perplexity:    27.22;  3492 tokens/s; 0:52:33 elapsed
+Epoch   3,   2100/7502 batches;
+                      perplexity:    26.55;  3520 tokens/s; 0:52:52 elapsed
+Epoch   3,   2200/7502 batches;
+                      perplexity:    27.31;  3530 tokens/s; 0:53:10 elapsed
+Epoch   3,   2300/7502 batches;
+                      perplexity:    26.52;  3545 tokens/s; 0:53:28 elapsed
+Epoch   3,   2400/7502 batches;
+                      perplexity:    27.12;  3472 tokens/s; 0:53:47 elapsed
+Epoch   3,   2500/7502 batches;
+                      perplexity:    27.33;  3548 tokens/s; 0:54:05 elapsed
+Epoch   3,   2600/7502 batches;
+                      perplexity:    27.98;  3495 tokens/s; 0:54:24 elapsed
+Epoch   3,   2700/7502 batches;
+                      perplexity:    27.96;  3544 tokens/s; 0:54:42 elapsed
+Epoch   3,   2800/7502 batches;
+                      perplexity:    27.48;  3597 tokens/s; 0:55:00 elapsed
+Epoch   3,   2900/7502 batches;
+                      perplexity:    28.41;  3614 tokens/s; 0:55:18 elapsed
+Epoch   3,   3000/7502 batches;
+                      perplexity:    28.10;  3438 tokens/s; 0:55:37 elapsed
+Epoch   3,   3100/7502 batches;
+                      perplexity:    28.17;  3502 tokens/s; 0:55:55 elapsed
+Epoch   3,   3200/7502 batches;
+                      perplexity:    27.59;  3376 tokens/s; 0:56:14 elapsed
+Epoch   3,   3300/7502 batches;
+                      perplexity:    28.72;  3541 tokens/s; 0:56:33 elapsed
+Epoch   3,   3400/7502 batches;
+                      perplexity:    27.89;  3600 tokens/s; 0:56:51 elapsed
+Epoch   3,   3500/7502 batches;
+                      perplexity:    28.35;  3460 tokens/s; 0:57:10 elapsed
+Epoch   3,   3600/7502 batches;
+                      perplexity:    29.14;  3466 tokens/s; 0:57:29 elapsed
+Epoch   3,   3700/7502 batches;
+                      perplexity:    29.46;  3433 tokens/s; 0:57:48 elapsed
+Epoch   3,   3800/7502 batches;
+                      perplexity:    28.04;  3569 tokens/s; 0:58:05 elapsed
+Epoch   3,   3900/7502 batches;
+                      perplexity:    28.22;  3530 tokens/s; 0:58:24 elapsed
+Epoch   3,   4000/7502 batches;
+                      perplexity:    28.71;  3561 tokens/s; 0:58:42 elapsed
+Epoch   3,   4100/7502 batches;
+                      perplexity:    29.12;  3294 tokens/s; 0:59:02 elapsed
+Epoch   3,   4200/7502 batches;
+                      perplexity:    27.62;  3359 tokens/s; 0:59:21 elapsed
+Epoch   3,   4300/7502 batches;
+                      perplexity:    30.42;  3073 tokens/s; 0:59:42 elapsed
+Epoch   3,   4400/7502 batches;
+                      perplexity:    29.24;  3234 tokens/s; 1:00:02 elapsed
+Epoch   3,   4500/7502 batches;
+                      perplexity:    29.31;  3649 tokens/s; 1:00:21 elapsed
+Epoch   3,   4600/7502 batches;
+                      perplexity:    27.47;  3575 tokens/s; 1:00:39 elapsed
+Epoch   3,   4700/7502 batches;
+                      perplexity:    28.89;  3521 tokens/s; 1:00:57 elapsed
+Epoch   3,   4800/7502 batches;
+                      perplexity:    29.79;  3552 tokens/s; 1:01:16 elapsed
+Epoch   3,   4900/7502 batches;
+                      perplexity:    30.14;  3547 tokens/s; 1:01:34 elapsed
+Epoch   3,   5000/7502 batches;
+                      perplexity:    30.62;  3559 tokens/s; 1:01:52 elapsed
+Epoch   3,   5100/7502 batches;
+                      perplexity:    28.77;  3602 tokens/s; 1:02:10 elapsed
+Epoch   3,   5200/7502 batches;
+                      perplexity:    29.77;  3511 tokens/s; 1:02:29 elapsed
+Epoch   3,   5300/7502 batches;
+                      perplexity:    30.46;  3557 tokens/s; 1:02:47 elapsed
+Epoch   3,   5400/7502 batches;
+                      perplexity:    29.00;  3617 tokens/s; 1:03:05 elapsed
+Epoch   3,   5500/7502 batches;
+                      perplexity:    29.31;  3465 tokens/s; 1:03:24 elapsed
+Epoch   3,   5600/7502 batches;
+                      perplexity:    28.92;  3478 tokens/s; 1:03:43 elapsed
+Epoch   3,   5700/7502 batches;
+                      perplexity:    29.22;  3447 tokens/s; 1:04:02 elapsed
+Epoch   3,   5800/7502 batches;
+                      perplexity:    29.58;  3474 tokens/s; 1:04:20 elapsed
+Epoch   3,   5900/7502 batches;
+                      perplexity:    27.35;  3628 tokens/s; 1:04:38 elapsed
+Epoch   3,   6000/7502 batches;
+                      perplexity:    28.52;  3564 tokens/s; 1:04:56 elapsed
+Epoch   3,   6100/7502 batches;
+                      perplexity:    30.22;  3578 tokens/s; 1:05:15 elapsed
+Epoch   3,   6200/7502 batches;
+                      perplexity:    28.17;  3528 tokens/s; 1:05:33 elapsed
+Epoch   3,   6300/7502 batches;
+                      perplexity:    28.65;  3402 tokens/s; 1:05:52 elapsed
+Epoch   3,   6400/7502 batches;
+                      perplexity:    28.91;  3249 tokens/s; 1:06:12 elapsed
+Epoch   3,   6500/7502 batches;
+                      perplexity:    28.53;  3422 tokens/s; 1:06:30 elapsed
+Epoch   3,   6600/7502 batches;
+                      perplexity:    29.80;  3507 tokens/s; 1:06:49 elapsed
+Epoch   3,   6700/7502 batches;
+                      perplexity:    30.90;  3651 tokens/s; 1:07:06 elapsed
+Epoch   3,   6800/7502 batches;
+                      perplexity:    29.10;  3513 tokens/s; 1:07:25 elapsed
+Epoch   3,   6900/7502 batches;
+                      perplexity:    30.14;  3531 tokens/s; 1:07:43 elapsed
+Epoch   3,   7000/7502 batches;
+                      perplexity:    29.50;  3575 tokens/s; 1:08:01 elapsed
+Epoch   3,   7100/7502 batches;
+                      perplexity:    29.34;  3597 tokens/s; 1:08:19 elapsed
+Epoch   3,   7200/7502 batches;
+                      perplexity:    30.83;  3590 tokens/s; 1:08:37 elapsed
+Epoch   3,   7300/7502 batches;
+                      perplexity:    29.05;  3604 tokens/s; 1:08:55 elapsed
+Epoch   3,   7400/7502 batches;
+                      perplexity:    29.48;  3591 tokens/s; 1:09:13 elapsed
+Epoch   3,   7500/7502 batches;
+                      perplexity:    30.19;  3434 tokens/s; 1:09:31 elapsed
+Train Loss: 3.3245 | Train PPL: 27.78
+Valid Loss: 1.7638 | Valid PPL: 5.83
+Validation sentence reward: 34.36
+Validation corpus reward: 24.85
+Save model as /mnt/storage/divya/exam/rmodel/model_3.pt
+
+* XENT epoch *
+Model optim lr: 0.001
+Epoch   4,    100/7502 batches;
+                      perplexity:    14.65;  3209 tokens/s; 1:10:00 elapsed
+Epoch   4,    200/7502 batches;
+                      perplexity:    14.94;  3290 tokens/s; 1:10:20 elapsed
+Epoch   4,    300/7502 batches;
+                      perplexity:    15.23;  3513 tokens/s; 1:10:38 elapsed
+Epoch   4,    400/7502 batches;
+                      perplexity:    14.72;  3476 tokens/s; 1:10:57 elapsed
+Epoch   4,    500/7502 batches;
+                      perplexity:    16.09;  3547 tokens/s; 1:11:15 elapsed
+Epoch   4,    600/7502 batches;
+                      perplexity:    16.16;  3650 tokens/s; 1:11:33 elapsed
+Epoch   4,    700/7502 batches;
+                      perplexity:    15.74;  3641 tokens/s; 1:11:51 elapsed
+Epoch   4,    800/7502 batches;
+                      perplexity:    15.87;  3421 tokens/s; 1:12:10 elapsed
+Epoch   4,    900/7502 batches;
+                      perplexity:    16.91;  3424 tokens/s; 1:12:28 elapsed
+Epoch   4,   1000/7502 batches;
+                      perplexity:    16.49;  3456 tokens/s; 1:12:47 elapsed
+Epoch   4,   1100/7502 batches;
+                      perplexity:    16.70;  3370 tokens/s; 1:13:06 elapsed
+Epoch   4,   1200/7502 batches;
+                      perplexity:    17.19;  3465 tokens/s; 1:13:25 elapsed
+Epoch   4,   1300/7502 batches;
+                      perplexity:    16.97;  3462 tokens/s; 1:13:44 elapsed
+Epoch   4,   1400/7502 batches;
+                      perplexity:    17.23;  3476 tokens/s; 1:14:03 elapsed
+Epoch   4,   1500/7502 batches;
+                      perplexity:    17.38;  3643 tokens/s; 1:14:21 elapsed
+Epoch   4,   1600/7502 batches;
+                      perplexity:    17.24;  3444 tokens/s; 1:14:40 elapsed
+Epoch   4,   1700/7502 batches;
+                      perplexity:    16.97;  3537 tokens/s; 1:14:58 elapsed
+Epoch   4,   1800/7502 batches;
+                      perplexity:    17.84;  4067 tokens/s; 1:15:13 elapsed
+Epoch   4,   1900/7502 batches;
+                      perplexity:    17.98;  3489 tokens/s; 1:15:32 elapsed
+Epoch   4,   2000/7502 batches;
+                      perplexity:    18.19;  3550 tokens/s; 1:15:50 elapsed
+Epoch   4,   2100/7502 batches;
+                      perplexity:    18.65;  3573 tokens/s; 1:16:09 elapsed
+Epoch   4,   2200/7502 batches;
+                      perplexity:    17.92;  3521 tokens/s; 1:16:27 elapsed
+Epoch   4,   2300/7502 batches;
+                      perplexity:    18.40;  3446 tokens/s; 1:16:46 elapsed
+Epoch   4,   2400/7502 batches;
+                      perplexity:    18.73;  3377 tokens/s; 1:17:05 elapsed
+Epoch   4,   2500/7502 batches;
+                      perplexity:    19.43;  3554 tokens/s; 1:17:23 elapsed
+Epoch   4,   2600/7502 batches;
+                      perplexity:    18.69;  3499 tokens/s; 1:17:42 elapsed
+Epoch   4,   2700/7502 batches;
+                      perplexity:    18.13;  3578 tokens/s; 1:18:00 elapsed
+Epoch   4,   2800/7502 batches;
+                      perplexity:    18.80;  3521 tokens/s; 1:18:18 elapsed
+Epoch   4,   2900/7502 batches;
+                      perplexity:    19.31;  3454 tokens/s; 1:18:37 elapsed
+Epoch   4,   3000/7502 batches;
+                      perplexity:    19.68;  3260 tokens/s; 1:18:57 elapsed
+Epoch   4,   3100/7502 batches;
+                      perplexity:    19.24;  3568 tokens/s; 1:19:15 elapsed
+Epoch   4,   3200/7502 batches;
+                      perplexity:    19.27;  3521 tokens/s; 1:19:34 elapsed
+Epoch   4,   3300/7502 batches;
+                      perplexity:    19.52;  3537 tokens/s; 1:19:52 elapsed
+Epoch   4,   3400/7502 batches;
+                      perplexity:    19.48;  3363 tokens/s; 1:20:11 elapsed
+Epoch   4,   3500/7502 batches;
+                      perplexity:    19.06;  3205 tokens/s; 1:20:31 elapsed
+Epoch   4,   3600/7502 batches;
+                      perplexity:    20.08;  3209 tokens/s; 1:20:51 elapsed
+Epoch   4,   3700/7502 batches;
+                      perplexity:    20.08;  3457 tokens/s; 1:21:10 elapsed
+Epoch   4,   3800/7502 batches;
+                      perplexity:    20.85;  3421 tokens/s; 1:21:29 elapsed
+Epoch   4,   3900/7502 batches;
+                      perplexity:    19.99;  3421 tokens/s; 1:21:48 elapsed
+Epoch   4,   4000/7502 batches;
+                      perplexity:    19.48;  3453 tokens/s; 1:22:07 elapsed
+Epoch   4,   4100/7502 batches;
+                      perplexity:    20.12;  3420 tokens/s; 1:22:26 elapsed
+Epoch   4,   4200/7502 batches;
+                      perplexity:    21.11;  3354 tokens/s; 1:22:46 elapsed
+Epoch   4,   4300/7502 batches;
+                      perplexity:    19.73;  3618 tokens/s; 1:23:04 elapsed
+Epoch   4,   4400/7502 batches;
+                      perplexity:    19.90;  3418 tokens/s; 1:23:23 elapsed
+Epoch   4,   4500/7502 batches;
+                      perplexity:    19.89;  3617 tokens/s; 1:23:41 elapsed
+Epoch   4,   4600/7502 batches;
+                      perplexity:    19.66;  3391 tokens/s; 1:24:00 elapsed
+Epoch   4,   4700/7502 batches;
+                      perplexity:    20.70;  3565 tokens/s; 1:24:18 elapsed
+Epoch   4,   4800/7502 batches;
+                      perplexity:    20.39;  3577 tokens/s; 1:24:36 elapsed
+Epoch   4,   4900/7502 batches;
+                      perplexity:    19.94;  3486 tokens/s; 1:24:55 elapsed
+Epoch   4,   5000/7502 batches;
+                      perplexity:    19.94;  3739 tokens/s; 1:25:13 elapsed
+Epoch   4,   5100/7502 batches;
+                      perplexity:    20.32;  3767 tokens/s; 1:25:30 elapsed
+Epoch   4,   5200/7502 batches;
+                      perplexity:    19.46;  3543 tokens/s; 1:25:48 elapsed
+Epoch   4,   5300/7502 batches;
+                      perplexity:    20.30;  3587 tokens/s; 1:26:06 elapsed
+Epoch   4,   5400/7502 batches;
+                      perplexity:    21.49;  3423 tokens/s; 1:26:25 elapsed
+Epoch   4,   5500/7502 batches;
+                      perplexity:    20.56;  3597 tokens/s; 1:26:43 elapsed
+Epoch   4,   5600/7502 batches;
+                      perplexity:    20.77;  3598 tokens/s; 1:27:01 elapsed
+Epoch   4,   5700/7502 batches;
+                      perplexity:    21.02;  3531 tokens/s; 1:27:19 elapsed
+Epoch   4,   5800/7502 batches;
+                      perplexity:    21.46;  3525 tokens/s; 1:27:37 elapsed
+Epoch   4,   5900/7502 batches;
+                      perplexity:    20.71;  3466 tokens/s; 1:27:56 elapsed
+Epoch   4,   6000/7502 batches;
+                      perplexity:    21.25;  3426 tokens/s; 1:28:15 elapsed
+Epoch   4,   6100/7502 batches;
+                      perplexity:    20.73;  3451 tokens/s; 1:28:34 elapsed
+Epoch   4,   6200/7502 batches;
+                      perplexity:    21.38;  3413 tokens/s; 1:28:53 elapsed
+Epoch   4,   6300/7502 batches;
+                      perplexity:    21.18;  3540 tokens/s; 1:29:11 elapsed
+Epoch   4,   6400/7502 batches;
+                      perplexity:    21.31;  3574 tokens/s; 1:29:29 elapsed
+Epoch   4,   6500/7502 batches;
+                      perplexity:    21.04;  3510 tokens/s; 1:29:48 elapsed
+Epoch   4,   6600/7502 batches;
+                      perplexity:    21.64;  3586 tokens/s; 1:30:05 elapsed
+Epoch   4,   6700/7502 batches;
+                      perplexity:    21.54;  3548 tokens/s; 1:30:24 elapsed
+Epoch   4,   6800/7502 batches;
+                      perplexity:    21.38;  3402 tokens/s; 1:30:43 elapsed
+Epoch   4,   6900/7502 batches;
+                      perplexity:    23.00;  3271 tokens/s; 1:31:03 elapsed
+Epoch   4,   7000/7502 batches;
+                      perplexity:    21.33;  3473 tokens/s; 1:31:22 elapsed
+Epoch   4,   7100/7502 batches;
+                      perplexity:    21.55;  3565 tokens/s; 1:31:40 elapsed
+Epoch   4,   7200/7502 batches;
+                      perplexity:    21.57;  3553 tokens/s; 1:31:58 elapsed
+Epoch   4,   7300/7502 batches;
+                      perplexity:    22.23;  3541 tokens/s; 1:32:16 elapsed
+Epoch   4,   7400/7502 batches;
+                      perplexity:    21.80;  3402 tokens/s; 1:32:35 elapsed
+Epoch   4,   7500/7502 batches;
+                      perplexity:    21.49;  3538 tokens/s; 1:32:53 elapsed
+Train Loss: 2.9542 | Train PPL: 19.19
+Valid Loss: 1.4475 | Valid PPL: 4.25
+Validation sentence reward: 39.03
+Validation corpus reward: 31.21
+Save model as /mnt/storage/divya/exam/rmodel/model_4.pt
+
+* XENT epoch *
+Model optim lr: 0.001
+Epoch   5,    100/7502 batches;
+                      perplexity:    11.57;  3592 tokens/s; 1:33:20 elapsed
+Epoch   5,    200/7502 batches;
+                      perplexity:    11.21;  3632 tokens/s; 1:33:38 elapsed
+Epoch   5,    300/7502 batches;
+                      perplexity:    11.25;  3573 tokens/s; 1:33:56 elapsed
+Epoch   5,    400/7502 batches;
+                      perplexity:    11.59;  3571 tokens/s; 1:34:14 elapsed
+Epoch   5,    500/7502 batches;
+                      perplexity:    11.53;  3515 tokens/s; 1:34:32 elapsed
+Epoch   5,    600/7502 batches;
+                      perplexity:    11.56;  3504 tokens/s; 1:34:50 elapsed
+Epoch   5,    700/7502 batches;
+                      perplexity:    12.27;  3596 tokens/s; 1:35:09 elapsed
+Epoch   5,    800/7502 batches;
+                      perplexity:    12.01;  3602 tokens/s; 1:35:26 elapsed
+Epoch   5,    900/7502 batches;
+                      perplexity:    12.08;  3398 tokens/s; 1:35:46 elapsed
+Epoch   5,   1000/7502 batches;
+                      perplexity:    12.14;  3306 tokens/s; 1:36:05 elapsed
+Epoch   5,   1100/7502 batches;
+                      perplexity:    12.26;  3261 tokens/s; 1:36:24 elapsed
+Epoch   5,   1200/7502 batches;
+                      perplexity:    12.18;  3590 tokens/s; 1:36:42 elapsed
+Epoch   5,   1300/7502 batches;
+                      perplexity:    12.71;  3582 tokens/s; 1:37:00 elapsed
+Epoch   5,   1400/7502 batches;
+                      perplexity:    13.25;  3681 tokens/s; 1:37:18 elapsed
+Epoch   5,   1500/7502 batches;
+                      perplexity:    13.24;  3508 tokens/s; 1:37:36 elapsed
+Epoch   5,   1600/7502 batches;
+                      perplexity:    13.24;  3446 tokens/s; 1:37:55 elapsed
+Epoch   5,   1700/7502 batches;
+                      perplexity:    13.18;  3608 tokens/s; 1:38:13 elapsed
+Epoch   5,   1800/7502 batches;
+                      perplexity:    13.32;  3557 tokens/s; 1:38:32 elapsed
+Epoch   5,   1900/7502 batches;
+                      perplexity:    13.40;  3505 tokens/s; 1:38:50 elapsed
+Epoch   5,   2000/7502 batches;
+                      perplexity:    13.74;  3608 tokens/s; 1:39:09 elapsed
+Epoch   5,   2100/7502 batches;
+                      perplexity:    13.50;  3453 tokens/s; 1:39:27 elapsed
+Epoch   5,   2200/7502 batches;
+                      perplexity:    14.10;  3461 tokens/s; 1:39:46 elapsed
+Epoch   5,   2300/7502 batches;
+                      perplexity:    14.18;  3623 tokens/s; 1:40:04 elapsed
+Epoch   5,   2400/7502 batches;
+                      perplexity:    13.82;  3408 tokens/s; 1:40:23 elapsed
+Epoch   5,   2500/7502 batches;
+                      perplexity:    14.68;  3467 tokens/s; 1:40:42 elapsed
+Epoch   5,   2600/7502 batches;
+                      perplexity:    14.26;  3632 tokens/s; 1:40:59 elapsed
+Epoch   5,   2700/7502 batches;
+                      perplexity:    14.24;  3640 tokens/s; 1:41:17 elapsed
+Epoch   5,   2800/7502 batches;
+                      perplexity:    14.25;  3817 tokens/s; 1:41:34 elapsed
+Epoch   5,   2900/7502 batches;
+                      perplexity:    14.28;  3682 tokens/s; 1:41:51 elapsed
+Epoch   5,   3000/7502 batches;
+                      perplexity:    14.30;  3699 tokens/s; 1:42:09 elapsed
+Epoch   5,   3100/7502 batches;
+                      perplexity:    14.28;  3499 tokens/s; 1:42:27 elapsed
+Epoch   5,   3200/7502 batches;
+                      perplexity:    15.27;  3592 tokens/s; 1:42:45 elapsed
+Epoch   5,   3300/7502 batches;
+                      perplexity:    15.10;  3407 tokens/s; 1:43:04 elapsed
+Epoch   5,   3400/7502 batches;
+                      perplexity:    15.06;  3508 tokens/s; 1:43:23 elapsed
+Epoch   5,   3500/7502 batches;
+                      perplexity:    14.70;  3461 tokens/s; 1:43:42 elapsed
+Epoch   5,   3600/7502 batches;
+                      perplexity:    14.78;  3523 tokens/s; 1:44:00 elapsed
+Epoch   5,   3700/7502 batches;
+                      perplexity:    15.03;  3466 tokens/s; 1:44:19 elapsed
+Epoch   5,   3800/7502 batches;
+                      perplexity:    14.98;  3387 tokens/s; 1:44:38 elapsed
+Epoch   5,   3900/7502 batches;
+                      perplexity:    15.20;  3515 tokens/s; 1:44:57 elapsed
+Epoch   5,   4000/7502 batches;
+                      perplexity:    15.75;  3530 tokens/s; 1:45:15 elapsed
+Epoch   5,   4100/7502 batches;
+                      perplexity:    15.67;  3563 tokens/s; 1:45:33 elapsed
+Epoch   5,   4200/7502 batches;
+                      perplexity:    15.32;  3526 tokens/s; 1:45:51 elapsed
+Epoch   5,   4300/7502 batches;
+                      perplexity:    15.23;  3661 tokens/s; 1:46:09 elapsed
+Epoch   5,   4400/7502 batches;
+                      perplexity:    15.95;  3539 tokens/s; 1:46:28 elapsed
+Epoch   5,   4500/7502 batches;
+                      perplexity:    15.31;  3442 tokens/s; 1:46:46 elapsed
+Epoch   5,   4600/7502 batches;
+                      perplexity:    15.84;  3477 tokens/s; 1:47:05 elapsed
+Epoch   5,   4700/7502 batches;
+                      perplexity:    15.48;  3580 tokens/s; 1:47:23 elapsed
+Epoch   5,   4800/7502 batches;
+                      perplexity:    15.35;  3436 tokens/s; 1:47:42 elapsed
+Epoch   5,   4900/7502 batches;
+                      perplexity:    15.36;  3513 tokens/s; 1:48:00 elapsed
+Epoch   5,   5000/7502 batches;
+                      perplexity:    15.62;  3334 tokens/s; 1:48:20 elapsed
+Epoch   5,   5100/7502 batches;
+                      perplexity:    16.41;  3397 tokens/s; 1:48:39 elapsed
+Epoch   5,   5200/7502 batches;
+                      perplexity:    15.82;  3371 tokens/s; 1:48:58 elapsed
+Epoch   5,   5300/7502 batches;
+                      perplexity:    16.10;  3277 tokens/s; 1:49:18 elapsed
+Epoch   5,   5400/7502 batches;
+                      perplexity:    15.91;  3529 tokens/s; 1:49:37 elapsed
+Epoch   5,   5500/7502 batches;
+                      perplexity:    16.18;  3493 tokens/s; 1:49:55 elapsed
+Epoch   5,   5600/7502 batches;
+                      perplexity:    16.47;  3454 tokens/s; 1:50:14 elapsed
+Epoch   5,   5700/7502 batches;
+                      perplexity:    16.67;  3582 tokens/s; 1:50:32 elapsed
+Epoch   5,   5800/7502 batches;
+                      perplexity:    16.90;  3682 tokens/s; 1:50:50 elapsed
+Epoch   5,   5900/7502 batches;
+                      perplexity:    15.95;  3586 tokens/s; 1:51:08 elapsed
+Epoch   5,   6000/7502 batches;
+                      perplexity:    16.46;  3637 tokens/s; 1:51:26 elapsed
+Epoch   5,   6100/7502 batches;
+                      perplexity:    16.63;  3513 tokens/s; 1:51:45 elapsed
+Epoch   5,   6200/7502 batches;
+                      perplexity:    16.36;  3609 tokens/s; 1:52:03 elapsed
+Epoch   5,   6300/7502 batches;
+                      perplexity:    16.25;  3489 tokens/s; 1:52:22 elapsed
+Epoch   5,   6400/7502 batches;
+                      perplexity:    16.27;  3456 tokens/s; 1:52:40 elapsed
+Epoch   5,   6500/7502 batches;
+                      perplexity:    16.72;  3578 tokens/s; 1:52:58 elapsed
+Epoch   5,   6600/7502 batches;
+                      perplexity:    16.19;  3552 tokens/s; 1:53:17 elapsed
+Epoch   5,   6700/7502 batches;
+                      perplexity:    16.76;  3553 tokens/s; 1:53:35 elapsed
+Epoch   5,   6800/7502 batches;
+                      perplexity:    17.03;  3473 tokens/s; 1:53:54 elapsed
+Epoch   5,   6900/7502 batches;
+                      perplexity:    17.13;  3527 tokens/s; 1:54:12 elapsed
+Epoch   5,   7000/7502 batches;
+                      perplexity:    16.44;  3621 tokens/s; 1:54:30 elapsed
+Epoch   5,   7100/7502 batches;
+                      perplexity:    17.55;  3486 tokens/s; 1:54:49 elapsed
+Epoch   5,   7200/7502 batches;
+                      perplexity:    17.17;  3634 tokens/s; 1:55:07 elapsed
+Epoch   5,   7300/7502 batches;
+                      perplexity:    16.64;  3471 tokens/s; 1:55:25 elapsed
+Epoch   5,   7400/7502 batches;
+                      perplexity:    17.51;  3349 tokens/s; 1:55:44 elapsed
+Epoch   5,   7500/7502 batches;
+                      perplexity:    17.46;  3287 tokens/s; 1:56:04 elapsed
+Train Loss: 2.6872 | Train PPL: 14.69
+Valid Loss: 1.3356 | Valid PPL: 3.80
+Validation sentence reward: 40.76
+Validation corpus reward: 32.78
+Save model as /mnt/storage/divya/exam/rmodel/model_5.pt
+
+* XENT epoch *
+Model optim lr: 0.001
+Epoch   6,    100/7502 batches;
+                      perplexity:     8.97;  3536 tokens/s; 1:56:31 elapsed
+Epoch   6,    200/7502 batches;
+                      perplexity:     9.47;  3567 tokens/s; 1:56:49 elapsed
+Epoch   6,    300/7502 batches;
+                      perplexity:     9.28;  3430 tokens/s; 1:57:08 elapsed
+Epoch   6,    400/7502 batches;
+                      perplexity:     9.41;  3540 tokens/s; 1:57:26 elapsed
+Epoch   6,    500/7502 batches;
+                      perplexity:     9.20;  3422 tokens/s; 1:57:45 elapsed
+Epoch   6,    600/7502 batches;
+                      perplexity:     9.63;  3518 tokens/s; 1:58:04 elapsed
+Epoch   6,    700/7502 batches;
+                      perplexity:     9.57;  3509 tokens/s; 1:58:22 elapsed
+Epoch   6,    800/7502 batches;
+                      perplexity:     9.80;  3469 tokens/s; 1:58:41 elapsed
+Epoch   6,    900/7502 batches;
+                      perplexity:     9.85;  3366 tokens/s; 1:59:01 elapsed
+Epoch   6,   1000/7502 batches;
+                      perplexity:    10.10;  3470 tokens/s; 1:59:19 elapsed
+Epoch   6,   1100/7502 batches;
+                      perplexity:    10.01;  3487 tokens/s; 1:59:38 elapsed
+Epoch   6,   1200/7502 batches;
+                      perplexity:    10.01;  3450 tokens/s; 1:59:57 elapsed
+Epoch   6,   1300/7502 batches;
+                      perplexity:    10.22;  3524 tokens/s; 2:00:15 elapsed
+Epoch   6,   1400/7502 batches;
+                      perplexity:    10.58;  3520 tokens/s; 2:00:34 elapsed
+Epoch   6,   1500/7502 batches;
+                      perplexity:    10.52;  3542 tokens/s; 2:00:52 elapsed
+Epoch   6,   1600/7502 batches;
+                      perplexity:    10.68;  3641 tokens/s; 2:01:10 elapsed
+Epoch   6,   1700/7502 batches;
+                      perplexity:    11.05;  3683 tokens/s; 2:01:27 elapsed
+Epoch   6,   1800/7502 batches;
+                      perplexity:    10.67;  3479 tokens/s; 2:01:46 elapsed
+Epoch   6,   1900/7502 batches;
+                      perplexity:    10.84;  3579 tokens/s; 2:02:04 elapsed
+Epoch   6,   2000/7502 batches;
+                      perplexity:    10.87;  3538 tokens/s; 2:02:23 elapsed
+Epoch   6,   2100/7502 batches;
+                      perplexity:    11.07;  3572 tokens/s; 2:02:41 elapsed
+Epoch   6,   2200/7502 batches;
+                      perplexity:    11.22;  3588 tokens/s; 2:02:59 elapsed
+Epoch   6,   2300/7502 batches;
+                      perplexity:    11.41;  3516 tokens/s; 2:03:17 elapsed
+Epoch   6,   2400/7502 batches;
+                      perplexity:    11.32;  3577 tokens/s; 2:03:35 elapsed
+Epoch   6,   2500/7502 batches;
+                      perplexity:    11.55;  3425 tokens/s; 2:03:54 elapsed
+Epoch   6,   2600/7502 batches;
+                      perplexity:    11.52;  3404 tokens/s; 2:04:13 elapsed
+Epoch   6,   2700/7502 batches;
+                      perplexity:    11.64;  3286 tokens/s; 2:04:33 elapsed
+Epoch   6,   2800/7502 batches;
+                      perplexity:    11.37;  3246 tokens/s; 2:04:52 elapsed
+Epoch   6,   2900/7502 batches;
+                      perplexity:    11.67;  3269 tokens/s; 2:05:12 elapsed
+Epoch   6,   3000/7502 batches;
+                      perplexity:    11.58;  3555 tokens/s; 2:05:30 elapsed
+Epoch   6,   3100/7502 batches;
+                      perplexity:    12.16;  3560 tokens/s; 2:05:48 elapsed
+Epoch   6,   3200/7502 batches;
+                      perplexity:    12.03;  3358 tokens/s; 2:06:07 elapsed
+Epoch   6,   3300/7502 batches;
+                      perplexity:    12.34;  3681 tokens/s; 2:06:25 elapsed
+Epoch   6,   3400/7502 batches;
+                      perplexity:    12.19;  3546 tokens/s; 2:06:43 elapsed
+Epoch   6,   3500/7502 batches;
+                      perplexity:    12.41;  3590 tokens/s; 2:07:01 elapsed
+Epoch   6,   3600/7502 batches;
+                      perplexity:    12.46;  3512 tokens/s; 2:07:19 elapsed
+Epoch   6,   3700/7502 batches;
+                      perplexity:    12.47;  3605 tokens/s; 2:07:38 elapsed
+Epoch   6,   3800/7502 batches;
+                      perplexity:    12.36;  3710 tokens/s; 2:07:55 elapsed
+Epoch   6,   3900/7502 batches;
+                      perplexity:    12.42;  3475 tokens/s; 2:08:14 elapsed
+Epoch   6,   4000/7502 batches;
+                      perplexity:    12.21;  3520 tokens/s; 2:08:32 elapsed
+Epoch   6,   4100/7502 batches;
+                      perplexity:    12.40;  3627 tokens/s; 2:08:50 elapsed
+Epoch   6,   4200/7502 batches;
+                      perplexity:    12.62;  3516 tokens/s; 2:09:09 elapsed
+Epoch   6,   4300/7502 batches;
+                      perplexity:    12.37;  3606 tokens/s; 2:09:27 elapsed
+Epoch   6,   4400/7502 batches;
+                      perplexity:    12.74;  3538 tokens/s; 2:09:45 elapsed
+Epoch   6,   4500/7502 batches;
+                      perplexity:    12.84;  3551 tokens/s; 2:10:04 elapsed
+Epoch   6,   4600/7502 batches;
+                      perplexity:    12.72;  3538 tokens/s; 2:10:22 elapsed
+Epoch   6,   4700/7502 batches;
+                      perplexity:    13.32;  3575 tokens/s; 2:10:40 elapsed
+Epoch   6,   4800/7502 batches;
+                      perplexity:    12.75;  3486 tokens/s; 2:10:58 elapsed
+Epoch   6,   4900/7502 batches;
+                      perplexity:    12.61;  3357 tokens/s; 2:11:18 elapsed
+Epoch   6,   5000/7502 batches;
+                      perplexity:    13.46;  3262 tokens/s; 2:11:38 elapsed
+Epoch   6,   5100/7502 batches;
+                      perplexity:    12.99;  3409 tokens/s; 2:11:57 elapsed
+Epoch   6,   5200/7502 batches;
+                      perplexity:    13.03;  3569 tokens/s; 2:12:15 elapsed
+Epoch   6,   5300/7502 batches;
+                      perplexity:    13.29;  3534 tokens/s; 2:12:34 elapsed
+Epoch   6,   5400/7502 batches;
+                      perplexity:    13.33;  3374 tokens/s; 2:12:53 elapsed
+Epoch   6,   5500/7502 batches;
+                      perplexity:    13.03;  3365 tokens/s; 2:13:12 elapsed
+Epoch   6,   5600/7502 batches;
+                      perplexity:    13.20;  3524 tokens/s; 2:13:31 elapsed
+Epoch   6,   5700/7502 batches;
+                      perplexity:    12.78;  3543 tokens/s; 2:13:49 elapsed
+Epoch   6,   5800/7502 batches;
+                      perplexity:    13.94;  3415 tokens/s; 2:14:08 elapsed
+Epoch   6,   5900/7502 batches;
+                      perplexity:    13.09;  3516 tokens/s; 2:14:26 elapsed
+Epoch   6,   6000/7502 batches;
+                      perplexity:    13.78;  3344 tokens/s; 2:14:45 elapsed
+Epoch   6,   6100/7502 batches;
+                      perplexity:    13.30;  3626 tokens/s; 2:15:03 elapsed
+Epoch   6,   6200/7502 batches;
+                      perplexity:    13.63;  3621 tokens/s; 2:15:21 elapsed
+Epoch   6,   6300/7502 batches;
+                      perplexity:    14.11;  3463 tokens/s; 2:15:40 elapsed
+Epoch   6,   6400/7502 batches;
+                      perplexity:    13.69;  3413 tokens/s; 2:15:59 elapsed
+Epoch   6,   6500/7502 batches;
+                      perplexity:    13.77;  3335 tokens/s; 2:16:18 elapsed
+Epoch   6,   6600/7502 batches;
+                      perplexity:    14.09;  3595 tokens/s; 2:16:36 elapsed
+Epoch   6,   6700/7502 batches;
+                      perplexity:    13.97;  3508 tokens/s; 2:16:55 elapsed
+Epoch   6,   6800/7502 batches;
+                      perplexity:    13.87;  3533 tokens/s; 2:17:13 elapsed
+Epoch   6,   6900/7502 batches;
+                      perplexity:    13.56;  3613 tokens/s; 2:17:31 elapsed
+Epoch   6,   7000/7502 batches;
+                      perplexity:    14.06;  3543 tokens/s; 2:17:50 elapsed
+Epoch   6,   7100/7502 batches;
+                      perplexity:    13.85;  3514 tokens/s; 2:18:08 elapsed
+Epoch   6,   7200/7502 batches;
+                      perplexity:    13.41;  3545 tokens/s; 2:18:26 elapsed
+Epoch   6,   7300/7502 batches;
+                      perplexity:    14.93;  3360 tokens/s; 2:18:46 elapsed
+Epoch   6,   7400/7502 batches;
+                      perplexity:    13.50;  3424 tokens/s; 2:19:05 elapsed
+Epoch   6,   7500/7502 batches;
+                      perplexity:    14.07;  3379 tokens/s; 2:19:24 elapsed
+Train Loss: 2.4838 | Train PPL: 11.99
+Valid Loss: 1.2002 | Valid PPL: 3.32
+Validation sentence reward: 44.39
+Validation corpus reward: 37.10
+Save model as /mnt/storage/divya/exam/rmodel/model_6.pt
+
+* XENT epoch *
+Model optim lr: 0.001
+Epoch   7,    100/7502 batches;
+                      perplexity:     7.61;  3495 tokens/s; 2:19:51 elapsed
+Epoch   7,    200/7502 batches;
+                      perplexity:     7.72;  3309 tokens/s; 2:20:10 elapsed
+Epoch   7,    300/7502 batches;
+                      perplexity:     7.99;  3420 tokens/s; 2:20:29 elapsed
+Epoch   7,    400/7502 batches;
+                      perplexity:     7.99;  3271 tokens/s; 2:20:49 elapsed
+Epoch   7,    500/7502 batches;
+                      perplexity:     8.14;  3389 tokens/s; 2:21:08 elapsed
+Epoch   7,    600/7502 batches;
+                      perplexity:     8.12;  3546 tokens/s; 2:21:27 elapsed
+Epoch   7,    700/7502 batches;
+                      perplexity:     7.98;  3574 tokens/s; 2:21:45 elapsed
+Epoch   7,    800/7502 batches;
+                      perplexity:     8.26;  3254 tokens/s; 2:22:04 elapsed
+Epoch   7,    900/7502 batches;
+                      perplexity:     8.21;  3382 tokens/s; 2:22:24 elapsed
+Epoch   7,   1000/7502 batches;
+                      perplexity:     8.40;  3633 tokens/s; 2:22:42 elapsed
+Epoch   7,   1100/7502 batches;
+                      perplexity:     8.32;  3617 tokens/s; 2:22:59 elapsed
+Epoch   7,   1200/7502 batches;
+                      perplexity:     8.58;  3466 tokens/s; 2:23:18 elapsed
+Epoch   7,   1300/7502 batches;
+                      perplexity:     8.88;  3564 tokens/s; 2:23:36 elapsed
+Epoch   7,   1400/7502 batches;
+                      perplexity:     8.69;  3446 tokens/s; 2:23:55 elapsed
+Epoch   7,   1500/7502 batches;
+                      perplexity:     9.10;  3613 tokens/s; 2:24:13 elapsed
+Epoch   7,   1600/7502 batches;
+                      perplexity:     9.23;  3507 tokens/s; 2:24:31 elapsed
+Epoch   7,   1700/7502 batches;
+                      perplexity:     9.21;  3540 tokens/s; 2:24:49 elapsed
+Epoch   7,   1800/7502 batches;
+                      perplexity:     9.28;  3562 tokens/s; 2:25:08 elapsed
+Epoch   7,   1900/7502 batches;
+                      perplexity:     8.94;  3535 tokens/s; 2:25:26 elapsed
+Epoch   7,   2000/7502 batches;
+                      perplexity:     9.20;  3671 tokens/s; 2:25:44 elapsed
+Epoch   7,   2100/7502 batches;
+                      perplexity:     9.37;  3566 tokens/s; 2:26:02 elapsed
+Epoch   7,   2200/7502 batches;
+                      perplexity:     9.69;  3602 tokens/s; 2:26:20 elapsed
+Epoch   7,   2300/7502 batches;
+                      perplexity:     9.42;  3504 tokens/s; 2:26:38 elapsed
+Epoch   7,   2400/7502 batches;
+                      perplexity:     9.76;  3568 tokens/s; 2:26:56 elapsed
+Epoch   7,   2500/7502 batches;
+                      perplexity:     9.47;  3599 tokens/s; 2:27:14 elapsed
+Epoch   7,   2600/7502 batches;
+                      perplexity:     9.68;  3602 tokens/s; 2:27:32 elapsed
+Epoch   7,   2700/7502 batches;
+                      perplexity:    10.08;  3584 tokens/s; 2:27:50 elapsed
+Epoch   7,   2800/7502 batches;
+                      perplexity:    10.11;  3388 tokens/s; 2:28:10 elapsed
+Epoch   7,   2900/7502 batches;
+                      perplexity:     9.99;  3337 tokens/s; 2:28:29 elapsed
+Epoch   7,   3000/7502 batches;
+                      perplexity:    10.25;  3489 tokens/s; 2:28:48 elapsed
+Epoch   7,   3100/7502 batches;
+                      perplexity:    10.44;  3547 tokens/s; 2:29:06 elapsed
+Epoch   7,   3200/7502 batches;
+                      perplexity:    10.13;  3431 tokens/s; 2:29:25 elapsed
+Epoch   7,   3300/7502 batches;
+                      perplexity:    10.30;  3408 tokens/s; 2:29:44 elapsed
+Epoch   7,   3400/7502 batches;
+                      perplexity:    10.36;  3581 tokens/s; 2:30:02 elapsed
+Epoch   7,   3500/7502 batches;
+                      perplexity:    10.16;  3304 tokens/s; 2:30:22 elapsed
+Epoch   7,   3600/7502 batches;
+                      perplexity:    10.24;  3480 tokens/s; 2:30:41 elapsed
+Epoch   7,   3700/7502 batches;
+                      perplexity:    10.14;  3551 tokens/s; 2:30:59 elapsed
+Epoch   7,   3800/7502 batches;
+                      perplexity:    10.50;  3536 tokens/s; 2:31:17 elapsed
+Epoch   7,   3900/7502 batches;
+                      perplexity:    10.48;  3637 tokens/s; 2:31:35 elapsed
+Epoch   7,   4000/7502 batches;
+                      perplexity:    10.67;  3466 tokens/s; 2:31:54 elapsed
+Epoch   7,   4100/7502 batches;
+                      perplexity:    11.15;  3620 tokens/s; 2:32:12 elapsed
+Epoch   7,   4200/7502 batches;
+                      perplexity:    10.70;  3548 tokens/s; 2:32:30 elapsed
+Epoch   7,   4300/7502 batches;
+                      perplexity:    11.06;  3275 tokens/s; 2:32:50 elapsed
+Epoch   7,   4400/7502 batches;
+                      perplexity:    10.95;  3413 tokens/s; 2:33:09 elapsed
+Epoch   7,   4500/7502 batches;
+                      perplexity:    10.79;  3426 tokens/s; 2:33:28 elapsed
+Epoch   7,   4600/7502 batches;
+                      perplexity:    10.96;  3528 tokens/s; 2:33:46 elapsed
+Epoch   7,   4700/7502 batches;
+                      perplexity:    10.93;  3925 tokens/s; 2:34:03 elapsed
+Epoch   7,   4800/7502 batches;
+                      perplexity:    11.36;  4122 tokens/s; 2:34:19 elapsed
+Epoch   7,   4900/7502 batches;
+                      perplexity:    11.15;  4122 tokens/s; 2:34:35 elapsed
+Epoch   7,   5000/7502 batches;
+                      perplexity:    11.02;  4039 tokens/s; 2:34:50 elapsed
+Epoch   7,   5100/7502 batches;
+                      perplexity:    11.25;  3916 tokens/s; 2:35:07 elapsed
+Epoch   7,   5200/7502 batches;
+                      perplexity:    10.92;  4015 tokens/s; 2:35:23 elapsed
+Epoch   7,   5300/7502 batches;
+                      perplexity:    11.48;  4023 tokens/s; 2:35:39 elapsed
+Epoch   7,   5400/7502 batches;
+                      perplexity:    11.39;  3936 tokens/s; 2:35:56 elapsed
+Epoch   7,   5500/7502 batches;
+                      perplexity:    11.20;  4094 tokens/s; 2:36:12 elapsed
+Epoch   7,   5600/7502 batches;
+                      perplexity:    11.48;  4110 tokens/s; 2:36:27 elapsed
+Epoch   7,   5700/7502 batches;
+                      perplexity:    11.62;  4017 tokens/s; 2:36:43 elapsed
+Epoch   7,   5800/7502 batches;
+                      perplexity:    11.60;  3963 tokens/s; 2:36:59 elapsed
+Epoch   7,   5900/7502 batches;
+                      perplexity:    11.41;  3971 tokens/s; 2:37:16 elapsed
+Epoch   7,   6000/7502 batches;
+                      perplexity:    11.38;  4071 tokens/s; 2:37:32 elapsed
+Epoch   7,   6100/7502 batches;
+                      perplexity:    11.44;  3967 tokens/s; 2:37:48 elapsed
+Epoch   7,   6200/7502 batches;
+                      perplexity:    11.93;  4031 tokens/s; 2:38:04 elapsed
+Epoch   7,   6300/7502 batches;
+                      perplexity:    12.00;  4030 tokens/s; 2:38:21 elapsed
+Epoch   7,   6400/7502 batches;
+                      perplexity:    11.75;  3921 tokens/s; 2:38:37 elapsed
+Epoch   7,   6500/7502 batches;
+                      perplexity:    12.25;  3938 tokens/s; 2:38:54 elapsed
+Epoch   7,   6600/7502 batches;
+                      perplexity:    11.87;  4021 tokens/s; 2:39:10 elapsed
+Epoch   7,   6700/7502 batches;
+                      perplexity:    11.71;  4016 tokens/s; 2:39:26 elapsed
+Epoch   7,   6800/7502 batches;
+                      perplexity:    11.81;  4054 tokens/s; 2:39:42 elapsed
+Epoch   7,   6900/7502 batches;
+                      perplexity:    11.74;  4026 tokens/s; 2:39:59 elapsed
+Epoch   7,   7000/7502 batches;
+                      perplexity:    12.11;  3704 tokens/s; 2:40:16 elapsed
+Epoch   7,   7100/7502 batches;
+                      perplexity:    12.06;  3936 tokens/s; 2:40:32 elapsed
+Epoch   7,   7200/7502 batches;
+                      perplexity:    11.90;  3880 tokens/s; 2:40:49 elapsed
+Epoch   7,   7300/7502 batches;
+                      perplexity:    11.93;  3818 tokens/s; 2:41:06 elapsed
+Epoch   7,   7400/7502 batches;
+                      perplexity:    12.03;  3956 tokens/s; 2:41:22 elapsed
+Epoch   7,   7500/7502 batches;
+                      perplexity:    12.26;  3873 tokens/s; 2:41:39 elapsed
+Train Loss: 2.3251 | Train PPL: 10.23
+Valid Loss: 1.0946 | Valid PPL: 2.99
+Validation sentence reward: 48.48
+Validation corpus reward: 41.57
+Save model as /mnt/storage/divya/exam/rmodel/model_7.pt
+
+* XENT epoch *
+Model optim lr: 0.001
+Epoch   8,    100/7502 batches;
+                      perplexity:     6.70;  3882 tokens/s; 2:42:02 elapsed
+Epoch   8,    200/7502 batches;
+                      perplexity:     7.05;  3576 tokens/s; 2:42:20 elapsed
+Epoch   8,    300/7502 batches;
+                      perplexity:     6.87;  3806 tokens/s; 2:42:37 elapsed
+Epoch   8,    400/7502 batches;
+                      perplexity:     7.11;  3969 tokens/s; 2:42:53 elapsed
+Epoch   8,    500/7502 batches;
+                      perplexity:     7.16;  3958 tokens/s; 2:43:10 elapsed
+Epoch   8,    600/7502 batches;
+                      perplexity:     7.28;  4057 tokens/s; 2:43:26 elapsed
+Epoch   8,    700/7502 batches;
+                      perplexity:     7.19;  3815 tokens/s; 2:43:43 elapsed
+Epoch   8,    800/7502 batches;
+                      perplexity:     7.29;  3858 tokens/s; 2:44:00 elapsed
+Epoch   8,    900/7502 batches;
+                      perplexity:     7.40;  4054 tokens/s; 2:44:16 elapsed
+Epoch   8,   1000/7502 batches;
+                      perplexity:     7.52;  4120 tokens/s; 2:44:31 elapsed
+Epoch   8,   1100/7502 batches;
+                      perplexity:     7.40;  4007 tokens/s; 2:44:48 elapsed
+Epoch   8,   1200/7502 batches;
+                      perplexity:     7.71;  3950 tokens/s; 2:45:04 elapsed
+Epoch   8,   1300/7502 batches;
+                      perplexity:     7.82;  3915 tokens/s; 2:45:21 elapsed
+Epoch   8,   1400/7502 batches;
+                      perplexity:     7.91;  3883 tokens/s; 2:45:37 elapsed
+Epoch   8,   1500/7502 batches;
+                      perplexity:     7.85;  3985 tokens/s; 2:45:53 elapsed
+Epoch   8,   1600/7502 batches;
+                      perplexity:     8.00;  3944 tokens/s; 2:46:10 elapsed
+Epoch   8,   1700/7502 batches;
+                      perplexity:     7.96;  3983 tokens/s; 2:46:26 elapsed
+Epoch   8,   1800/7502 batches;
+                      perplexity:     7.87;  4210 tokens/s; 2:46:42 elapsed
+Epoch   8,   1900/7502 batches;
+                      perplexity:     8.25;  4068 tokens/s; 2:46:58 elapsed
+Epoch   8,   2000/7502 batches;
+                      perplexity:     8.21;  4147 tokens/s; 2:47:13 elapsed
+Epoch   8,   2100/7502 batches;
+                      perplexity:     8.08;  4141 tokens/s; 2:47:29 elapsed
+Epoch   8,   2200/7502 batches;
+                      perplexity:     8.49;  4093 tokens/s; 2:47:45 elapsed
+Epoch   8,   2300/7502 batches;
+                      perplexity:     8.55;  3789 tokens/s; 2:48:02 elapsed
+Epoch   8,   2400/7502 batches;
+                      perplexity:     8.58;  3993 tokens/s; 2:48:18 elapsed
+Epoch   8,   2500/7502 batches;
+                      perplexity:     8.32;  4014 tokens/s; 2:48:35 elapsed
+Epoch   8,   2600/7502 batches;
+                      perplexity:     8.60;  3921 tokens/s; 2:48:51 elapsed
+Epoch   8,   2700/7502 batches;
+                      perplexity:     8.40;  3997 tokens/s; 2:49:07 elapsed
+Epoch   8,   2800/7502 batches;
+                      perplexity:     9.03;  4034 tokens/s; 2:49:24 elapsed
+Epoch   8,   2900/7502 batches;
+                      perplexity:     9.11;  4060 tokens/s; 2:49:40 elapsed
+Epoch   8,   3000/7502 batches;
+                      perplexity:     8.84;  3772 tokens/s; 2:49:57 elapsed
+Epoch   8,   3100/7502 batches;
+                      perplexity:     8.90;  3748 tokens/s; 2:50:14 elapsed
+Epoch   8,   3200/7502 batches;
+                      perplexity:     8.71;  3922 tokens/s; 2:50:31 elapsed
+Epoch   8,   3300/7502 batches;
+                      perplexity:     9.08;  4007 tokens/s; 2:50:47 elapsed
+Epoch   8,   3400/7502 batches;
+                      perplexity:     9.04;  3758 tokens/s; 2:51:04 elapsed
+Epoch   8,   3500/7502 batches;
+                      perplexity:     8.91;  3961 tokens/s; 2:51:21 elapsed
+Epoch   8,   3600/7502 batches;
+                      perplexity:     9.11;  3998 tokens/s; 2:51:37 elapsed
+Epoch   8,   3700/7502 batches;
+                      perplexity:     9.18;  3988 tokens/s; 2:51:53 elapsed
+Epoch   8,   3800/7502 batches;
+                      perplexity:     9.27;  4143 tokens/s; 2:52:09 elapsed
+Epoch   8,   3900/7502 batches;
+                      perplexity:     9.36;  4130 tokens/s; 2:52:25 elapsed
+Epoch   8,   4000/7502 batches;
+                      perplexity:     9.37;  3993 tokens/s; 2:52:41 elapsed
+Epoch   8,   4100/7502 batches;
+                      perplexity:     9.44;  4020 tokens/s; 2:52:57 elapsed
+Epoch   8,   4200/7502 batches;
+                      perplexity:     9.53;  4044 tokens/s; 2:53:13 elapsed
+Epoch   8,   4300/7502 batches;
+                      perplexity:     9.53;  4099 tokens/s; 2:53:28 elapsed
+Epoch   8,   4400/7502 batches;
+                      perplexity:     9.33;  4055 tokens/s; 2:53:44 elapsed
+Epoch   8,   4500/7502 batches;
+                      perplexity:     9.88;  3883 tokens/s; 2:54:01 elapsed
+Epoch   8,   4600/7502 batches;
+                      perplexity:     9.71;  3910 tokens/s; 2:54:17 elapsed
+Epoch   8,   4700/7502 batches;
+                      perplexity:     9.71;  3994 tokens/s; 2:54:34 elapsed
+Epoch   8,   4800/7502 batches;
+                      perplexity:     9.75;  3951 tokens/s; 2:54:50 elapsed
+Epoch   8,   4900/7502 batches;
+                      perplexity:     9.95;  4024 tokens/s; 2:55:06 elapsed
+Epoch   8,   5000/7502 batches;
+                      perplexity:     9.58;  4066 tokens/s; 2:55:23 elapsed
+Epoch   8,   5100/7502 batches;
+                      perplexity:    10.09;  3932 tokens/s; 2:55:39 elapsed
+Epoch   8,   5200/7502 batches;
+                      perplexity:     9.82;  4021 tokens/s; 2:55:55 elapsed
+Epoch   8,   5300/7502 batches;
+                      perplexity:     9.83;  4025 tokens/s; 2:56:11 elapsed
+Epoch   8,   5400/7502 batches;
+                      perplexity:     9.86;  3882 tokens/s; 2:56:28 elapsed
+Epoch   8,   5500/7502 batches;
+                      perplexity:     9.99;  3859 tokens/s; 2:56:45 elapsed
+Epoch   8,   5600/7502 batches;
+                      perplexity:    10.11;  4003 tokens/s; 2:57:01 elapsed
+Epoch   8,   5700/7502 batches;
+                      perplexity:    10.28;  3974 tokens/s; 2:57:17 elapsed
+Epoch   8,   5800/7502 batches;
+                      perplexity:     9.94;  3993 tokens/s; 2:57:33 elapsed
+Epoch   8,   5900/7502 batches;
+                      perplexity:    10.23;  3989 tokens/s; 2:57:50 elapsed
+Epoch   8,   6000/7502 batches;
+                      perplexity:    10.83;  4028 tokens/s; 2:58:06 elapsed
+Epoch   8,   6100/7502 batches;
+                      perplexity:    10.53;  4067 tokens/s; 2:58:22 elapsed
+Epoch   8,   6200/7502 batches;
+                      perplexity:    10.25;  3976 tokens/s; 2:58:38 elapsed
+Epoch   8,   6300/7502 batches;
+                      perplexity:    10.36;  4023 tokens/s; 2:58:54 elapsed
+Epoch   8,   6400/7502 batches;
+                      perplexity:    10.14;  3952 tokens/s; 2:59:10 elapsed
+Epoch   8,   6500/7502 batches;
+                      perplexity:    10.73;  3993 tokens/s; 2:59:27 elapsed
+Epoch   8,   6600/7502 batches;
+                      perplexity:    10.48;  4042 tokens/s; 2:59:43 elapsed
+Epoch   8,   6700/7502 batches;
+                      perplexity:    10.27;  3992 tokens/s; 2:59:59 elapsed
+Epoch   8,   6800/7502 batches;
+                      perplexity:    10.82;  4078 tokens/s; 3:00:15 elapsed
+Epoch   8,   6900/7502 batches;
+                      perplexity:    10.54;  3943 tokens/s; 3:00:31 elapsed
+Epoch   8,   7000/7502 batches;
+                      perplexity:    10.70;  3834 tokens/s; 3:00:48 elapsed
+Epoch   8,   7100/7502 batches;
+                      perplexity:    10.35;  3435 tokens/s; 3:01:07 elapsed
+Epoch   8,   7200/7502 batches;
+                      perplexity:    10.12;  3579 tokens/s; 3:01:24 elapsed
+Epoch   8,   7300/7502 batches;
+                      perplexity:    10.53;  3820 tokens/s; 3:01:41 elapsed
+Epoch   8,   7400/7502 batches;
+                      perplexity:    11.02;  3916 tokens/s; 3:01:58 elapsed
+Epoch   8,   7500/7502 batches;
+                      perplexity:    10.56;  4019 tokens/s; 3:02:14 elapsed
+Train Loss: 2.1993 | Train PPL: 9.02
+Valid Loss: 1.0307 | Valid PPL: 2.80
+Validation sentence reward: 48.76
+Validation corpus reward: 42.25
+Save model as /mnt/storage/divya/exam/rmodel/model_8.pt
+
+* XENT epoch *
+Model optim lr: 0.001
+Epoch   9,    100/7502 batches;
+                      perplexity:     6.49;  4099 tokens/s; 3:02:38 elapsed
+Epoch   9,    200/7502 batches;
+                      perplexity:     6.12;  3970 tokens/s; 3:02:54 elapsed
+Epoch   9,    300/7502 batches;
+                      perplexity:     6.14;  3918 tokens/s; 3:03:11 elapsed
+Epoch   9,    400/7502 batches;
+                      perplexity:     6.18;  3932 tokens/s; 3:03:27 elapsed
+Epoch   9,    500/7502 batches;
+                      perplexity:     6.26;  3881 tokens/s; 3:03:44 elapsed
+Epoch   9,    600/7502 batches;
+                      perplexity:     6.36;  3955 tokens/s; 3:04:00 elapsed
+Epoch   9,    700/7502 batches;
+                      perplexity:     6.43;  3977 tokens/s; 3:04:17 elapsed
+Epoch   9,    800/7502 batches;
+                      perplexity:     6.45;  4078 tokens/s; 3:04:33 elapsed
+Epoch   9,    900/7502 batches;
+                      perplexity:     6.60;  4024 tokens/s; 3:04:49 elapsed
+Epoch   9,   1000/7502 batches;
+                      perplexity:     6.72;  4024 tokens/s; 3:05:05 elapsed
+Epoch   9,   1100/7502 batches;
+                      perplexity:     6.64;  4076 tokens/s; 3:05:21 elapsed
+Epoch   9,   1200/7502 batches;
+                      perplexity:     6.76;  4012 tokens/s; 3:05:37 elapsed
+Epoch   9,   1300/7502 batches;
+                      perplexity:     6.98;  4014 tokens/s; 3:05:53 elapsed
+Epoch   9,   1400/7502 batches;
+                      perplexity:     7.09;  4028 tokens/s; 3:06:09 elapsed
+Epoch   9,   1500/7502 batches;
+                      perplexity:     7.12;  3965 tokens/s; 3:06:26 elapsed
+Epoch   9,   1600/7502 batches;
+                      perplexity:     6.88;  4013 tokens/s; 3:06:42 elapsed
+Epoch   9,   1700/7502 batches;
+                      perplexity:     7.09;  4009 tokens/s; 3:06:58 elapsed
+Epoch   9,   1800/7502 batches;
+                      perplexity:     7.45;  3952 tokens/s; 3:07:14 elapsed
+Epoch   9,   1900/7502 batches;
+                      perplexity:     7.29;  3939 tokens/s; 3:07:31 elapsed
+Epoch   9,   2000/7502 batches;
+                      perplexity:     7.58;  4044 tokens/s; 3:07:47 elapsed
+Epoch   9,   2100/7502 batches;
+                      perplexity:     7.55;  4104 tokens/s; 3:08:03 elapsed
+Epoch   9,   2200/7502 batches;
+                      perplexity:     7.52;  3928 tokens/s; 3:08:19 elapsed
+Epoch   9,   2300/7502 batches;
+                      perplexity:     7.65;  4027 tokens/s; 3:08:35 elapsed
+Epoch   9,   2400/7502 batches;
+                      perplexity:     7.58;  3550 tokens/s; 3:08:53 elapsed
+Epoch   9,   2500/7502 batches;
+                      perplexity:     7.68;  3574 tokens/s; 3:09:11 elapsed
+Epoch   9,   2600/7502 batches;
+                      perplexity:     7.88;  3750 tokens/s; 3:09:29 elapsed
+Epoch   9,   2700/7502 batches;
+                      perplexity:     7.69;  3955 tokens/s; 3:09:45 elapsed
+Epoch   9,   2800/7502 batches;
+                      perplexity:     8.06;  3969 tokens/s; 3:10:02 elapsed
+Epoch   9,   2900/7502 batches;
+                      perplexity:     7.92;  4026 tokens/s; 3:10:18 elapsed
+Epoch   9,   3000/7502 batches;
+                      perplexity:     7.79;  4016 tokens/s; 3:10:34 elapsed
+Epoch   9,   3100/7502 batches;
+                      perplexity:     8.36;  3858 tokens/s; 3:10:51 elapsed
+Epoch   9,   3200/7502 batches;
+                      perplexity:     8.00;  3866 tokens/s; 3:11:08 elapsed
+Epoch   9,   3300/7502 batches;
+                      perplexity:     7.96;  3905 tokens/s; 3:11:24 elapsed
+Epoch   9,   3400/7502 batches;
+                      perplexity:     8.10;  3925 tokens/s; 3:11:41 elapsed
+Epoch   9,   3500/7502 batches;
+                      perplexity:     8.24;  4287 tokens/s; 3:11:56 elapsed
+Epoch   9,   3600/7502 batches;
+                      perplexity:     8.18;  4064 tokens/s; 3:12:12 elapsed
+Epoch   9,   3700/7502 batches;
+                      perplexity:     8.43;  3878 tokens/s; 3:12:29 elapsed
+Epoch   9,   3800/7502 batches;
+                      perplexity:     8.28;  3667 tokens/s; 3:12:46 elapsed
+Epoch   9,   3900/7502 batches;
+                      perplexity:     8.41;  3511 tokens/s; 3:13:05 elapsed
+Epoch   9,   4000/7502 batches;
+                      perplexity:     8.49;  3460 tokens/s; 3:13:24 elapsed
+Epoch   9,   4100/7502 batches;
+                      perplexity:     8.63;  4185 tokens/s; 3:13:39 elapsed
+Epoch   9,   4200/7502 batches;
+                      perplexity:     8.48;  3970 tokens/s; 3:13:55 elapsed
+Epoch   9,   4300/7502 batches;
+                      perplexity:     8.65;  3786 tokens/s; 3:14:13 elapsed
+Epoch   9,   4400/7502 batches;
+                      perplexity:     8.67;  4016 tokens/s; 3:14:29 elapsed
+Epoch   9,   4500/7502 batches;
+                      perplexity:     8.62;  3983 tokens/s; 3:14:45 elapsed
+Epoch   9,   4600/7502 batches;
+                      perplexity:     8.72;  3790 tokens/s; 3:15:02 elapsed
+Epoch   9,   4700/7502 batches;
+                      perplexity:     8.67;  4072 tokens/s; 3:15:18 elapsed
+Epoch   9,   4800/7502 batches;
+                      perplexity:     9.11;  3821 tokens/s; 3:15:35 elapsed
+Epoch   9,   4900/7502 batches;
+                      perplexity:     8.75;  3675 tokens/s; 3:15:53 elapsed
+Epoch   9,   5000/7502 batches;
+                      perplexity:     8.98;  3644 tokens/s; 3:16:11 elapsed
+Epoch   9,   5100/7502 batches;
+                      perplexity:     8.92;  4091 tokens/s; 3:16:27 elapsed
+Epoch   9,   5200/7502 batches;
+                      perplexity:     9.31;  3508 tokens/s; 3:16:45 elapsed
+Epoch   9,   5300/7502 batches;
+                      perplexity:     9.14;  3855 tokens/s; 3:17:02 elapsed
+Epoch   9,   5400/7502 batches;
+                      perplexity:     9.30;  3637 tokens/s; 3:17:20 elapsed
+Epoch   9,   5500/7502 batches;
+                      perplexity:     8.80;  3802 tokens/s; 3:17:37 elapsed
+Epoch   9,   5600/7502 batches;
+                      perplexity:     9.00;  3556 tokens/s; 3:17:55 elapsed
+Epoch   9,   5700/7502 batches;
+                      perplexity:     9.17;  3637 tokens/s; 3:18:13 elapsed
+Epoch   9,   5800/7502 batches;
+                      perplexity:     9.17;  3683 tokens/s; 3:18:31 elapsed
+Epoch   9,   5900/7502 batches;
+                      perplexity:     9.36;  3989 tokens/s; 3:18:47 elapsed
+Epoch   9,   6000/7502 batches;
+                      perplexity:     9.19;  3702 tokens/s; 3:19:04 elapsed
+Epoch   9,   6100/7502 batches;
+                      perplexity:     9.38;  3964 tokens/s; 3:19:21 elapsed
+Epoch   9,   6200/7502 batches;
+                      perplexity:     9.05;  3880 tokens/s; 3:19:37 elapsed
+Epoch   9,   6300/7502 batches;
+                      perplexity:     9.36;  3959 tokens/s; 3:19:53 elapsed
+Epoch   9,   6400/7502 batches;
+                      perplexity:     9.14;  3978 tokens/s; 3:20:10 elapsed
+Epoch   9,   6500/7502 batches;
+                      perplexity:     9.24;  4070 tokens/s; 3:20:26 elapsed
+Epoch   9,   6600/7502 batches;
+                      perplexity:     9.38;  4043 tokens/s; 3:20:42 elapsed
+Epoch   9,   6700/7502 batches;
+                      perplexity:     9.21;  4025 tokens/s; 3:20:58 elapsed
+Epoch   9,   6800/7502 batches;
+                      perplexity:     9.63;  3974 tokens/s; 3:21:14 elapsed
+Epoch   9,   6900/7502 batches;
+                      perplexity:     9.66;  3880 tokens/s; 3:21:31 elapsed
+Epoch   9,   7000/7502 batches;
+                      perplexity:     9.46;  4179 tokens/s; 3:21:46 elapsed
+Epoch   9,   7100/7502 batches;
+                      perplexity:     9.73;  4040 tokens/s; 3:22:02 elapsed
+Epoch   9,   7200/7502 batches;
+                      perplexity:     9.62;  4132 tokens/s; 3:22:18 elapsed
+Epoch   9,   7300/7502 batches;
+                      perplexity:     9.65;  4050 tokens/s; 3:22:34 elapsed
+Epoch   9,   7400/7502 batches;
+                      perplexity:     9.83;  3931 tokens/s; 3:22:50 elapsed
+Epoch   9,   7500/7502 batches;
+                      perplexity:     9.59;  3739 tokens/s; 3:23:08 elapsed
+Train Loss: 2.0950 | Train PPL: 8.13
+Valid Loss: 0.9879 | Valid PPL: 2.69
+Validation sentence reward: 49.76
+Validation corpus reward: 42.58
+Save model as /mnt/storage/divya/exam/rmodel/model_9.pt
+
+* XENT epoch *
+Model optim lr: 0.001
+Epoch  10,    100/7502 batches;
+                      perplexity:     5.77;  3816 tokens/s; 3:23:33 elapsed
+Epoch  10,    200/7502 batches;
+                      perplexity:     5.81;  3828 tokens/s; 3:23:50 elapsed
+Epoch  10,    300/7502 batches;
+                      perplexity:     5.65;  3874 tokens/s; 3:24:07 elapsed
+Epoch  10,    400/7502 batches;
+                      perplexity:     5.78;  4078 tokens/s; 3:24:23 elapsed
+Epoch  10,    500/7502 batches;
+                      perplexity:     5.79;  3938 tokens/s; 3:24:40 elapsed
+Epoch  10,    600/7502 batches;
+                      perplexity:     5.81;  3688 tokens/s; 3:24:57 elapsed
+Epoch  10,    700/7502 batches;
+                      perplexity:     5.86;  3664 tokens/s; 3:25:15 elapsed
+Epoch  10,    800/7502 batches;
+                      perplexity:     6.01;  3694 tokens/s; 3:25:33 elapsed
+Epoch  10,    900/7502 batches;
+                      perplexity:     6.19;  3708 tokens/s; 3:25:50 elapsed
+Epoch  10,   1000/7502 batches;
+                      perplexity:     6.17;  3668 tokens/s; 3:26:08 elapsed
+Epoch  10,   1100/7502 batches;
+                      perplexity:     6.15;  3767 tokens/s; 3:26:25 elapsed
+Epoch  10,   1200/7502 batches;
+                      perplexity:     6.30;  3910 tokens/s; 3:26:42 elapsed
+Epoch  10,   1300/7502 batches;
+                      perplexity:     6.46;  3921 tokens/s; 3:26:58 elapsed
+Epoch  10,   1400/7502 batches;
+                      perplexity:     6.37;  4028 tokens/s; 3:27:14 elapsed
+Epoch  10,   1500/7502 batches;
+                      perplexity:     6.40;  4010 tokens/s; 3:27:30 elapsed
+Epoch  10,   1600/7502 batches;
+                      perplexity:     6.53;  3679 tokens/s; 3:27:48 elapsed
+Epoch  10,   1700/7502 batches;
+                      perplexity:     6.68;  3527 tokens/s; 3:28:06 elapsed
+Epoch  10,   1800/7502 batches;
+                      perplexity:     6.73;  3749 tokens/s; 3:28:23 elapsed
+Epoch  10,   1900/7502 batches;
+                      perplexity:     6.80;  3786 tokens/s; 3:28:40 elapsed
+Epoch  10,   2000/7502 batches;
+                      perplexity:     6.67;  4030 tokens/s; 3:28:56 elapsed
+Epoch  10,   2100/7502 batches;
+                      perplexity:     6.80;  3854 tokens/s; 3:29:13 elapsed
+Epoch  10,   2200/7502 batches;
+                      perplexity:     6.96;  3959 tokens/s; 3:29:29 elapsed
+Epoch  10,   2300/7502 batches;
+                      perplexity:     7.06;  3695 tokens/s; 3:29:47 elapsed
+Epoch  10,   2400/7502 batches;
+                      perplexity:     7.22;  4022 tokens/s; 3:30:03 elapsed
+Epoch  10,   2500/7502 batches;
+                      perplexity:     6.96;  3954 tokens/s; 3:30:19 elapsed
+Epoch  10,   2600/7502 batches;
+                      perplexity:     6.96;  3986 tokens/s; 3:30:36 elapsed
+Epoch  10,   2700/7502 batches;
+                      perplexity:     7.22;  3943 tokens/s; 3:30:52 elapsed
+Epoch  10,   2800/7502 batches;
+                      perplexity:     7.27;  3948 tokens/s; 3:31:08 elapsed
+Epoch  10,   2900/7502 batches;
+                      perplexity:     7.25;  3996 tokens/s; 3:31:24 elapsed
+Epoch  10,   3000/7502 batches;
+                      perplexity:     7.39;  4129 tokens/s; 3:31:40 elapsed
+Epoch  10,   3100/7502 batches;
+                      perplexity:     7.58;  3923 tokens/s; 3:31:56 elapsed
+Epoch  10,   3200/7502 batches;
+                      perplexity:     7.41;  3866 tokens/s; 3:32:13 elapsed
+Epoch  10,   3300/7502 batches;
+                      perplexity:     7.47;  3824 tokens/s; 3:32:30 elapsed
+Epoch  10,   3400/7502 batches;
+                      perplexity:     7.63;  3975 tokens/s; 3:32:47 elapsed
+Epoch  10,   3500/7502 batches;
+                      perplexity:     7.64;  3757 tokens/s; 3:33:04 elapsed
+Epoch  10,   3600/7502 batches;
+                      perplexity:     7.60;  3920 tokens/s; 3:33:20 elapsed
+Epoch  10,   3700/7502 batches;
+                      perplexity:     7.59;  3923 tokens/s; 3:33:37 elapsed
+Epoch  10,   3800/7502 batches;
+                      perplexity:     7.58;  4087 tokens/s; 3:33:53 elapsed
+Epoch  10,   3900/7502 batches;
+                      perplexity:     7.82;  3882 tokens/s; 3:34:10 elapsed
+Epoch  10,   4000/7502 batches;
+                      perplexity:     7.81;  3758 tokens/s; 3:34:27 elapsed
+Epoch  10,   4100/7502 batches;
+                      perplexity:     7.92;  3891 tokens/s; 3:34:43 elapsed
+Epoch  10,   4200/7502 batches;
+                      perplexity:     7.70;  3706 tokens/s; 3:35:01 elapsed
+Epoch  10,   4300/7502 batches;
+                      perplexity:     8.08;  3891 tokens/s; 3:35:18 elapsed
+Epoch  10,   4400/7502 batches;
+                      perplexity:     7.88;  4139 tokens/s; 3:35:33 elapsed
+Epoch  10,   4500/7502 batches;
+                      perplexity:     8.00;  4091 tokens/s; 3:35:49 elapsed
+Epoch  10,   4600/7502 batches;
+                      perplexity:     7.95;  4034 tokens/s; 3:36:06 elapsed
+Epoch  10,   4700/7502 batches;
+                      perplexity:     7.89;  3806 tokens/s; 3:36:23 elapsed
+Epoch  10,   4800/7502 batches;
+                      perplexity:     8.16;  4039 tokens/s; 3:36:39 elapsed
+Epoch  10,   4900/7502 batches;
+                      perplexity:     8.16;  3936 tokens/s; 3:36:56 elapsed
+Epoch  10,   5000/7502 batches;
+                      perplexity:     7.98;  3999 tokens/s; 3:37:12 elapsed
+Epoch  10,   5100/7502 batches;
+                      perplexity:     8.01;  3925 tokens/s; 3:37:28 elapsed
+Epoch  10,   5200/7502 batches;
+                      perplexity:     8.19;  4101 tokens/s; 3:37:44 elapsed
+Epoch  10,   5300/7502 batches;
+                      perplexity:     8.47;  3788 tokens/s; 3:38:01 elapsed
+Epoch  10,   5400/7502 batches;
+                      perplexity:     8.12;  3736 tokens/s; 3:38:18 elapsed
+Epoch  10,   5500/7502 batches;
+                      perplexity:     8.36;  4083 tokens/s; 3:38:34 elapsed
+Epoch  10,   5600/7502 batches;
+                      perplexity:     8.10;  3970 tokens/s; 3:38:51 elapsed
+Epoch  10,   5700/7502 batches;
+                      perplexity:     8.40;  3990 tokens/s; 3:39:07 elapsed
+Epoch  10,   5800/7502 batches;
+                      perplexity:     8.54;  4061 tokens/s; 3:39:23 elapsed
+Epoch  10,   5900/7502 batches;
+                      perplexity:     8.58;  3985 tokens/s; 3:39:39 elapsed
+Epoch  10,   6000/7502 batches;
+                      perplexity:     8.30;  3986 tokens/s; 3:39:55 elapsed
+Epoch  10,   6100/7502 batches;
+                      perplexity:     8.48;  4164 tokens/s; 3:40:11 elapsed
+Epoch  10,   6200/7502 batches;
+                      perplexity:     8.21;  4084 tokens/s; 3:40:27 elapsed
+Epoch  10,   6300/7502 batches;
+                      perplexity:     8.52;  4098 tokens/s; 3:40:42 elapsed
+Epoch  10,   6400/7502 batches;
+                      perplexity:     8.73;  4002 tokens/s; 3:40:58 elapsed
+Epoch  10,   6500/7502 batches;
+                      perplexity:     8.81;  4006 tokens/s; 3:41:15 elapsed
+Epoch  10,   6600/7502 batches;
+                      perplexity:     8.84;  3923 tokens/s; 3:41:31 elapsed
+Epoch  10,   6700/7502 batches;
+                      perplexity:     8.73;  4113 tokens/s; 3:41:47 elapsed
+Epoch  10,   6800/7502 batches;
+                      perplexity:     8.78;  3968 tokens/s; 3:42:03 elapsed
+Epoch  10,   6900/7502 batches;
+                      perplexity:     8.63;  3930 tokens/s; 3:42:20 elapsed
+Epoch  10,   7000/7502 batches;
+                      perplexity:     8.72;  3963 tokens/s; 3:42:36 elapsed
+Epoch  10,   7100/7502 batches;
+                      perplexity:     8.81;  4033 tokens/s; 3:42:52 elapsed
+Epoch  10,   7200/7502 batches;
+                      perplexity:     8.70;  3627 tokens/s; 3:43:10 elapsed
+Epoch  10,   7300/7502 batches;
+                      perplexity:     8.75;  3849 tokens/s; 3:43:27 elapsed
+Epoch  10,   7400/7502 batches;
+                      perplexity:     8.71;  4115 tokens/s; 3:43:43 elapsed
+Epoch  10,   7500/7502 batches;
+                      perplexity:     8.99;  3970 tokens/s; 3:43:59 elapsed
+Train Loss: 2.0094 | Train PPL: 7.46
+Valid Loss: 0.9234 | Valid PPL: 2.52
+Validation sentence reward: 50.51
+Validation corpus reward: 44.59
+Save model as /mnt/storage/divya/exam/rmodel/model_10.pt
+Encoder embedding dim: 500
+Decoder embedding dim: 500
+Skipping initialization for: encoder.word_lut.weight
+Skipping initialization for: decoder.word_lut.weight
+
+NMTModel(
+  (encoder): Encoder(
+    (word_lut): Embedding(50004, 500, padding_idx=0)
+    (rnn): LSTM(500, 500)
+  )
+  (decoder): Decoder(
+    (word_lut): Embedding(50004, 500, padding_idx=0)
+    (rnn): StackedLSTM(
+      (dropout): Dropout(p=0, inplace=False)
+      (layers): ModuleList(
+        (0): LSTMCell(1000, 500)
+      )
+    )
+    (attn): GlobalAttention(
+      (linear_in): Linear(in_features=500, out_features=500, bias=False)
+      (sm): Softmax(dim=None)
+      (linear_out): Linear(in_features=1000, out_features=500, bias=False)
+      (tanh): Tanh()
+    )
+    (dropout): Dropout(p=0, inplace=False)
+  )
+  (generator): BaseGenerator(
+    (generator): Linear(in_features=500, out_features=50004, bias=True)
+  )
+)
+
+NMTModel(
+  (encoder): Encoder(
+    (word_lut): Embedding(50004, 500, padding_idx=0)
+    (rnn): LSTM(500, 500)
+  )
+  (decoder): Decoder(
+    (word_lut): Embedding(50004, 500, padding_idx=0)
+    (rnn): StackedLSTM(
+      (dropout): Dropout(p=0, inplace=False)
+      (layers): ModuleList(
+        (0): LSTMCell(1000, 500)
+      )
+    )
+    (attn): GlobalAttention(
+      (linear_in): Linear(in_features=500, out_features=500, bias=False)
+      (sm): Softmax(dim=None)
+      (linear_out): Linear(in_features=1000, out_features=500, bias=False)
+      (tanh): Tanh()
+    )
+    (dropout): Dropout(p=0, inplace=False)
+  )
+  (generator): BaseGenerator(
+    (generator): Linear(in_features=500, out_features=1, bias=True)
+  )
+)
+
+* REINFORCE epoch *
+Actor optim lr: 0.0001; Critic optim lr: 0.001
+Pretrain critic...
+Epoch  11,    100/7502 batches;
+                      actor reward: 16.0034; critic loss: 0.047462;  2733 tokens/s; 3:44:30 elapsed
+Epoch  11,    200/7502 batches;
+                      actor reward: 16.5001; critic loss: 0.014987;  2777 tokens/s; 3:44:53 elapsed
+Epoch  11,    300/7502 batches;
+                      actor reward: 16.4983; critic loss: 0.014525;  2676 tokens/s; 3:45:18 elapsed
+Epoch  11,    400/7502 batches;
+                      actor reward: 16.6142; critic loss: 0.014567;  2715 tokens/s; 3:45:42 elapsed
+Epoch  11,    500/7502 batches;
+                      actor reward: 16.7988; critic loss: 0.013444;  2702 tokens/s; 3:46:07 elapsed
+Epoch  11,    600/7502 batches;
+                      actor reward: 16.9182; critic loss: 0.013148;  2689 tokens/s; 3:46:31 elapsed
+Epoch  11,    700/7502 batches;
+                      actor reward: 16.7097; critic loss: 0.012201;  2612 tokens/s; 3:46:56 elapsed
+Epoch  11,    800/7502 batches;
+                      actor reward: 16.4220; critic loss: 0.010872;  2730 tokens/s; 3:47:20 elapsed
+Epoch  11,    900/7502 batches;
+                      actor reward: 16.2979; critic loss: 0.010798;  2694 tokens/s; 3:47:45 elapsed
+Epoch  11,   1000/7502 batches;
+                      actor reward: 17.2412; critic loss: 0.011402;  2730 tokens/s; 3:48:09 elapsed
+Epoch  11,   1100/7502 batches;
+                      actor reward: 16.8766; critic loss: 0.010489;  2776 tokens/s; 3:48:32 elapsed
+Epoch  11,   1200/7502 batches;
+                      actor reward: 16.7785; critic loss: 0.010292;  2786 tokens/s; 3:48:55 elapsed
+Epoch  11,   1300/7502 batches;
+                      actor reward: 16.8042; critic loss: 0.010398;  2597 tokens/s; 3:49:21 elapsed
+Epoch  11,   1400/7502 batches;
+                      actor reward: 16.7189; critic loss: 0.009838;  2737 tokens/s; 3:49:44 elapsed
+Epoch  11,   1500/7502 batches;
+                      actor reward: 17.0626; critic loss: 0.010810;  2774 tokens/s; 3:50:08 elapsed
+Epoch  11,   1600/7502 batches;
+                      actor reward: 16.8650; critic loss: 0.010578;  2755 tokens/s; 3:50:32 elapsed
+Epoch  11,   1700/7502 batches;
+                      actor reward: 17.2702; critic loss: 0.010683;  2732 tokens/s; 3:50:56 elapsed
+Epoch  11,   1800/7502 batches;
+                      actor reward: 17.0663; critic loss: 0.009490;  2737 tokens/s; 3:51:20 elapsed
+Epoch  11,   1900/7502 batches;
+                      actor reward: 17.1948; critic loss: 0.010200;  2756 tokens/s; 3:51:43 elapsed
+Epoch  11,   2000/7502 batches;
+                      actor reward: 17.0496; critic loss: 0.013205;  2564 tokens/s; 3:52:09 elapsed
+Epoch  11,   2100/7502 batches;
+                      actor reward: 16.7480; critic loss: 0.009983;  2602 tokens/s; 3:52:34 elapsed
+Epoch  11,   2200/7502 batches;
+                      actor reward: 16.9766; critic loss: 0.010739;  2757 tokens/s; 3:52:58 elapsed
+Epoch  11,   2300/7502 batches;
+                      actor reward: 16.8499; critic loss: 0.009754;  2736 tokens/s; 3:53:22 elapsed
+Epoch  11,   2400/7502 batches;
+                      actor reward: 16.7803; critic loss: 0.009529;  2752 tokens/s; 3:53:46 elapsed
+Epoch  11,   2500/7502 batches;
+                      actor reward: 17.0382; critic loss: 0.009415;  2758 tokens/s; 3:54:10 elapsed
+Epoch  11,   2600/7502 batches;
+                      actor reward: 17.0891; critic loss: 0.009504;  2724 tokens/s; 3:54:34 elapsed
+Epoch  11,   2700/7502 batches;
+                      actor reward: 17.3186; critic loss: 0.010603;  2716 tokens/s; 3:54:58 elapsed
+Epoch  11,   2800/7502 batches;
+                      actor reward: 17.1542; critic loss: 0.009642;  2566 tokens/s; 3:55:24 elapsed
+Epoch  11,   2900/7502 batches;
+                      actor reward: 17.0937; critic loss: 0.010068;  2653 tokens/s; 3:55:48 elapsed
+Epoch  11,   3000/7502 batches;
+                      actor reward: 17.3584; critic loss: 0.010815;  2742 tokens/s; 3:56:12 elapsed
+Epoch  11,   3100/7502 batches;
+                      actor reward: 17.2575; critic loss: 0.010223;  2660 tokens/s; 3:56:37 elapsed
+Epoch  11,   3200/7502 batches;
+                      actor reward: 17.3480; critic loss: 0.010087;  2718 tokens/s; 3:57:01 elapsed
+Epoch  11,   3300/7502 batches;
+                      actor reward: 17.3285; critic loss: 0.010178;  2798 tokens/s; 3:57:25 elapsed
+Epoch  11,   3400/7502 batches;
+                      actor reward: 17.4075; critic loss: 0.009632;  2739 tokens/s; 3:57:49 elapsed
+Epoch  11,   3500/7502 batches;
+                      actor reward: 17.7447; critic loss: 0.010459;  2739 tokens/s; 3:58:12 elapsed
+Epoch  11,   3600/7502 batches;
+                      actor reward: 17.2998; critic loss: 0.009916;  2773 tokens/s; 3:58:36 elapsed
+Epoch  11,   3700/7502 batches;
+                      actor reward: 17.3715; critic loss: 0.009624;  2634 tokens/s; 3:59:02 elapsed
+Epoch  11,   3800/7502 batches;
+                      actor reward: 17.8896; critic loss: 0.010639;  2733 tokens/s; 3:59:25 elapsed
+Epoch  11,   3900/7502 batches;
+                      actor reward: 17.4107; critic loss: 0.010555;  2785 tokens/s; 3:59:49 elapsed
+Epoch  11,   4000/7502 batches;
+                      actor reward: 18.0514; critic loss: 0.010902;  2856 tokens/s; 4:00:13 elapsed
+Epoch  11,   4100/7502 batches;
+                      actor reward: 18.0152; critic loss: 0.010642;  2779 tokens/s; 4:00:36 elapsed
+Epoch  11,   4200/7502 batches;
+                      actor reward: 17.9993; critic loss: 0.010699;  2773 tokens/s; 4:01:00 elapsed
+Epoch  11,   4300/7502 batches;
+                      actor reward: 17.3397; critic loss: 0.009564;  2910 tokens/s; 4:01:23 elapsed
+Epoch  11,   4400/7502 batches;
+                      actor reward: 17.9907; critic loss: 0.010705;  2829 tokens/s; 4:01:46 elapsed
+Epoch  11,   4500/7502 batches;
+                      actor reward: 17.8304; critic loss: 0.010814;  2775 tokens/s; 4:02:10 elapsed
+Epoch  11,   4600/7502 batches;
+                      actor reward: 17.7611; critic loss: 0.010029;  2718 tokens/s; 4:02:34 elapsed
+Epoch  11,   4700/7502 batches;
+                      actor reward: 18.0863; critic loss: 0.010939;  2753 tokens/s; 4:02:58 elapsed
+Epoch  11,   4800/7502 batches;
+                      actor reward: 18.0347; critic loss: 0.010723;  2727 tokens/s; 4:03:22 elapsed
+Epoch  11,   4900/7502 batches;
+                      actor reward: 17.9155; critic loss: 0.010609;  2753 tokens/s; 4:03:46 elapsed
+Epoch  11,   5000/7502 batches;
+                      actor reward: 18.6783; critic loss: 0.011383;  2659 tokens/s; 4:04:11 elapsed
+Epoch  11,   5100/7502 batches;
+                      actor reward: 18.2331; critic loss: 0.010985;  2705 tokens/s; 4:04:35 elapsed
+Epoch  11,   5200/7502 batches;
+                      actor reward: 18.4460; critic loss: 0.011325;  2716 tokens/s; 4:04:59 elapsed
+Epoch  11,   5300/7502 batches;
+                      actor reward: 18.3772; critic loss: 0.010712;  2781 tokens/s; 4:05:23 elapsed
+Epoch  11,   5400/7502 batches;
+                      actor reward: 18.6645; critic loss: 0.011495;  2761 tokens/s; 4:05:47 elapsed
+Epoch  11,   5500/7502 batches;
+                      actor reward: 18.4656; critic loss: 0.011259;  2780 tokens/s; 4:06:10 elapsed
+Epoch  11,   5600/7502 batches;
+                      actor reward: 19.2025; critic loss: 0.012350;  2785 tokens/s; 4:06:34 elapsed
+Epoch  11,   5700/7502 batches;
+                      actor reward: 18.8330; critic loss: 0.011477;  2582 tokens/s; 4:06:59 elapsed
+Epoch  11,   5800/7502 batches;
+                      actor reward: 19.1520; critic loss: 0.013148;  2591 tokens/s; 4:07:24 elapsed
+Epoch  11,   5900/7502 batches;
+                      actor reward: 18.6495; critic loss: 0.012576;  2708 tokens/s; 4:07:48 elapsed
+Epoch  11,   6000/7502 batches;
+                      actor reward: 19.3375; critic loss: 0.012599;  2790 tokens/s; 4:08:12 elapsed
+Epoch  11,   6100/7502 batches;
+                      actor reward: 19.5321; critic loss: 0.012527;  2707 tokens/s; 4:08:36 elapsed
+Epoch  11,   6200/7502 batches;
+                      actor reward: 20.0001; critic loss: 0.013391;  2640 tokens/s; 4:09:01 elapsed
+Epoch  11,   6300/7502 batches;
+                      actor reward: 19.5011; critic loss: 0.012321;  2738 tokens/s; 4:09:25 elapsed
+Epoch  11,   6400/7502 batches;
+                      actor reward: 20.0054; critic loss: 0.014619;  2806 tokens/s; 4:09:49 elapsed
+Epoch  11,   6500/7502 batches;
+                      actor reward: 20.2075; critic loss: 0.013628;  2688 tokens/s; 4:10:14 elapsed
+Epoch  11,   6600/7502 batches;
+                      actor reward: 20.2623; critic loss: 0.013482;  2556 tokens/s; 4:10:39 elapsed
+Epoch  11,   6700/7502 batches;
+                      actor reward: 20.7751; critic loss: 0.015164;  2566 tokens/s; 4:11:04 elapsed
+Epoch  11,   6800/7502 batches;
+                      actor reward: 20.2836; critic loss: 0.013688;  2573 tokens/s; 4:11:30 elapsed
+Epoch  11,   6900/7502 batches;
+                      actor reward: 21.3164; critic loss: 0.015326;  2596 tokens/s; 4:11:55 elapsed
+Epoch  11,   7000/7502 batches;
+                      actor reward: 21.5659; critic loss: 0.015211;  2652 tokens/s; 4:12:20 elapsed
+Epoch  11,   7100/7502 batches;
+                      actor reward: 21.6981; critic loss: 0.015161;  2637 tokens/s; 4:12:45 elapsed
+Epoch  11,   7200/7502 batches;
+                      actor reward: 22.3629; critic loss: 0.017017;  2549 tokens/s; 4:13:11 elapsed
+Epoch  11,   7300/7502 batches;
+                      actor reward: 23.4462; critic loss: 0.017879;  2674 tokens/s; 4:13:36 elapsed
+Epoch  11,   7400/7502 batches;
+                      actor reward: 25.1403; critic loss: 0.021058;  2740 tokens/s; 4:13:59 elapsed
+Epoch  11,   7500/7502 batches;
+                      actor reward: 24.6205; critic loss: 0.021224;  2638 tokens/s; 4:14:24 elapsed
+Train sentence reward: 18.25
+Critic loss: 0.0123713
+Validation perplexity: 2.52
+Validation sentence reward: 50.51
+Validation corpus reward: 44.59
+Save model as /mnt/storage/divya/exam/rmodel/model_11_pretrain.pt
+
+* REINFORCE epoch *
+Actor optim lr: 0.0001; Critic optim lr: 0.001
+Pretrain critic...
+Epoch  12,    100/7502 batches;
+                      actor reward: 16.1349; critic loss: 0.009484;  2669 tokens/s; 4:14:56 elapsed
+Epoch  12,    200/7502 batches;
+                      actor reward: 16.6023; critic loss: 0.008027;  2757 tokens/s; 4:15:20 elapsed
+Epoch  12,    300/7502 batches;
+                      actor reward: 16.7473; critic loss: 0.008670;  2675 tokens/s; 4:15:45 elapsed
+Epoch  12,    400/7502 batches;
+                      actor reward: 16.6340; critic loss: 0.008040;  2614 tokens/s; 4:16:10 elapsed
+Epoch  12,    500/7502 batches;
+                      actor reward: 16.6181; critic loss: 0.007977;  2734 tokens/s; 4:16:34 elapsed
+Epoch  12,    600/7502 batches;
+                      actor reward: 16.7239; critic loss: 0.008758;  2730 tokens/s; 4:16:58 elapsed
+Epoch  12,    700/7502 batches;
+                      actor reward: 16.6471; critic loss: 0.008472;  2679 tokens/s; 4:17:23 elapsed
+Epoch  12,    800/7502 batches;
+                      actor reward: 17.0330; critic loss: 0.008639;  2783 tokens/s; 4:17:46 elapsed
+Epoch  12,    900/7502 batches;
+                      actor reward: 16.2505; critic loss: 0.008197;  2808 tokens/s; 4:18:10 elapsed
+Epoch  12,   1000/7502 batches;
+                      actor reward: 17.1644; critic loss: 0.009300;  2709 tokens/s; 4:18:34 elapsed
+Epoch  12,   1100/7502 batches;
+                      actor reward: 17.1156; critic loss: 0.009354;  2547 tokens/s; 4:19:00 elapsed
+Epoch  12,   1200/7502 batches;
+                      actor reward: 16.8014; critic loss: 0.008570;  2711 tokens/s; 4:19:24 elapsed
+Epoch  12,   1300/7502 batches;
+                      actor reward: 16.7433; critic loss: 0.008897;  2925 tokens/s; 4:19:46 elapsed
+Epoch  12,   1400/7502 batches;
+                      actor reward: 16.9923; critic loss: 0.009006;  2751 tokens/s; 4:20:10 elapsed
+Epoch  12,   1500/7502 batches;
+                      actor reward: 17.1292; critic loss: 0.009396;  2671 tokens/s; 4:20:34 elapsed
+Epoch  12,   1600/7502 batches;
+                      actor reward: 16.4952; critic loss: 0.008202;  2618 tokens/s; 4:20:59 elapsed
+Epoch  12,   1700/7502 batches;
+                      actor reward: 17.1944; critic loss: 0.008965;  2573 tokens/s; 4:21:25 elapsed
+Epoch  12,   1800/7502 batches;
+                      actor reward: 16.7418; critic loss: 0.008740;  2668 tokens/s; 4:21:49 elapsed
+Epoch  12,   1900/7502 batches;
+                      actor reward: 17.0570; critic loss: 0.008630;  2669 tokens/s; 4:22:14 elapsed
+Epoch  12,   2000/7502 batches;
+                      actor reward: 17.0248; critic loss: 0.009149;  2688 tokens/s; 4:22:38 elapsed
+Epoch  12,   2100/7502 batches;
+                      actor reward: 16.8674; critic loss: 0.008548;  2706 tokens/s; 4:23:02 elapsed
+Epoch  12,   2200/7502 batches;
+                      actor reward: 16.8689; critic loss: 0.008706;  2783 tokens/s; 4:23:26 elapsed
+Epoch  12,   2300/7502 batches;
+                      actor reward: 16.7405; critic loss: 0.008308;  2798 tokens/s; 4:23:49 elapsed
+Epoch  12,   2400/7502 batches;
+                      actor reward: 16.7809; critic loss: 0.013483;  2802 tokens/s; 4:24:13 elapsed
+Epoch  12,   2500/7502 batches;
+                      actor reward: 17.0477; critic loss: 0.013147;  2725 tokens/s; 4:24:37 elapsed
+Epoch  12,   2600/7502 batches;
+                      actor reward: 16.8952; critic loss: 0.009503;  2667 tokens/s; 4:25:02 elapsed
+Epoch  12,   2700/7502 batches;
+                      actor reward: 17.5121; critic loss: 0.010542;  2742 tokens/s; 4:25:26 elapsed
+Epoch  12,   2800/7502 batches;
+                      actor reward: 17.5927; critic loss: 0.010100;  2769 tokens/s; 4:25:49 elapsed
+Epoch  12,   2900/7502 batches;
+                      actor reward: 16.9224; critic loss: 0.008699;  2677 tokens/s; 4:26:14 elapsed
+Epoch  12,   3000/7502 batches;
+                      actor reward: 17.1033; critic loss: 0.009077;  2553 tokens/s; 4:26:39 elapsed
+Epoch  12,   3100/7502 batches;
+                      actor reward: 17.0957; critic loss: 0.008937;  2560 tokens/s; 4:27:04 elapsed
+Epoch  12,   3200/7502 batches;
+                      actor reward: 17.1992; critic loss: 0.008744;  2700 tokens/s; 4:27:29 elapsed
+Epoch  12,   3300/7502 batches;
+                      actor reward: 17.3801; critic loss: 0.009181;  2780 tokens/s; 4:27:53 elapsed
+Epoch  12,   3400/7502 batches;
+                      actor reward: 17.3000; critic loss: 0.009038;  2768 tokens/s; 4:28:17 elapsed
+Epoch  12,   3500/7502 batches;
+                      actor reward: 17.7773; critic loss: 0.009441;  2684 tokens/s; 4:28:41 elapsed
+Epoch  12,   3600/7502 batches;
+                      actor reward: 17.4471; critic loss: 0.009616;  2582 tokens/s; 4:29:07 elapsed
+Epoch  12,   3700/7502 batches;
+                      actor reward: 17.1891; critic loss: 0.009346;  2658 tokens/s; 4:29:32 elapsed
+Epoch  12,   3800/7502 batches;
+                      actor reward: 17.5772; critic loss: 0.009920;  2652 tokens/s; 4:29:57 elapsed
+Epoch  12,   3900/7502 batches;
+                      actor reward: 17.3316; critic loss: 0.009335;  2718 tokens/s; 4:30:21 elapsed
+Epoch  12,   4000/7502 batches;
+                      actor reward: 17.8706; critic loss: 0.009361;  2744 tokens/s; 4:30:46 elapsed
+Epoch  12,   4100/7502 batches;
+                      actor reward: 17.9729; critic loss: 0.010046;  2744 tokens/s; 4:31:09 elapsed
+Epoch  12,   4200/7502 batches;
+                      actor reward: 17.7334; critic loss: 0.009923;  2773 tokens/s; 4:31:33 elapsed
+Epoch  12,   4300/7502 batches;
+                      actor reward: 17.4959; critic loss: 0.009537;  2712 tokens/s; 4:31:57 elapsed
+Epoch  12,   4400/7502 batches;
+                      actor reward: 17.8084; critic loss: 0.010139;  2713 tokens/s; 4:32:21 elapsed
+Epoch  12,   4500/7502 batches;
+                      actor reward: 17.8088; critic loss: 0.009573;  2710 tokens/s; 4:32:46 elapsed
+Epoch  12,   4600/7502 batches;
+                      actor reward: 17.8856; critic loss: 0.009433;  2660 tokens/s; 4:33:11 elapsed
+Epoch  12,   4700/7502 batches;
+                      actor reward: 17.9994; critic loss: 0.009925;  2668 tokens/s; 4:33:35 elapsed
+Epoch  12,   4800/7502 batches;
+                      actor reward: 17.7302; critic loss: 0.009311;  2717 tokens/s; 4:33:59 elapsed
+Epoch  12,   4900/7502 batches;
+                      actor reward: 18.0919; critic loss: 0.010135;  2739 tokens/s; 4:34:23 elapsed
+Epoch  12,   5000/7502 batches;
+                      actor reward: 18.1945; critic loss: 0.010132;  2760 tokens/s; 4:34:47 elapsed
+Epoch  12,   5100/7502 batches;
+                      actor reward: 18.0275; critic loss: 0.009499;  2717 tokens/s; 4:35:11 elapsed
+Epoch  12,   5200/7502 batches;
+                      actor reward: 18.3212; critic loss: 0.011021;  2719 tokens/s; 4:35:36 elapsed
+Epoch  12,   5300/7502 batches;
+                      actor reward: 18.4969; critic loss: 0.011502;  2686 tokens/s; 4:36:00 elapsed
+Epoch  12,   5400/7502 batches;
+                      actor reward: 18.5016; critic loss: 0.010570;  2717 tokens/s; 4:36:24 elapsed
+Epoch  12,   5500/7502 batches;
+                      actor reward: 18.4106; critic loss: 0.010441;  2609 tokens/s; 4:36:50 elapsed
+Epoch  12,   5600/7502 batches;
+                      actor reward: 18.7870; critic loss: 0.010449;  2711 tokens/s; 4:37:14 elapsed
+Epoch  12,   5700/7502 batches;
+                      actor reward: 18.6536; critic loss: 0.011104;  2807 tokens/s; 4:37:38 elapsed
+Epoch  12,   5800/7502 batches;
+                      actor reward: 18.7792; critic loss: 0.011093;  2752 tokens/s; 4:38:01 elapsed
+Epoch  12,   5900/7502 batches;
+                      actor reward: 18.6071; critic loss: 0.011118;  2792 tokens/s; 4:38:24 elapsed
+Epoch  12,   6000/7502 batches;
+                      actor reward: 19.2566; critic loss: 0.011794;  2607 tokens/s; 4:38:50 elapsed
+Epoch  12,   6100/7502 batches;
+                      actor reward: 19.6338; critic loss: 0.011438;  2751 tokens/s; 4:39:14 elapsed
+Epoch  12,   6200/7502 batches;
+                      actor reward: 19.5920; critic loss: 0.012070;  2847 tokens/s; 4:39:37 elapsed
+Epoch  12,   6300/7502 batches;
+                      actor reward: 19.7475; critic loss: 0.012739;  2654 tokens/s; 4:40:02 elapsed
+Epoch  12,   6400/7502 batches;
+                      actor reward: 19.4948; critic loss: 0.013031;  2706 tokens/s; 4:40:26 elapsed
+Epoch  12,   6500/7502 batches;
+                      actor reward: 20.3022; critic loss: 0.014542;  2719 tokens/s; 4:40:50 elapsed
+Epoch  12,   6600/7502 batches;
+                      actor reward: 20.5295; critic loss: 0.014373;  2600 tokens/s; 4:41:15 elapsed
+Epoch  12,   6700/7502 batches;
+                      actor reward: 20.8482; critic loss: 0.020385;  2629 tokens/s; 4:41:41 elapsed
+Epoch  12,   6800/7502 batches;
+                      actor reward: 20.3895; critic loss: 0.015227;  2603 tokens/s; 4:42:06 elapsed
+Epoch  12,   6900/7502 batches;
+                      actor reward: 20.9689; critic loss: 0.014936;  2709 tokens/s; 4:42:30 elapsed
+Epoch  12,   7000/7502 batches;
+                      actor reward: 21.2805; critic loss: 0.015331;  2752 tokens/s; 4:42:54 elapsed
+Epoch  12,   7100/7502 batches;
+                      actor reward: 21.8372; critic loss: 0.016972;  2849 tokens/s; 4:43:17 elapsed
+Epoch  12,   7200/7502 batches;
+                      actor reward: 22.3229; critic loss: 0.017552;  2791 tokens/s; 4:43:41 elapsed
+Epoch  12,   7300/7502 batches;
+                      actor reward: 22.9844; critic loss: 0.017544;  2777 tokens/s; 4:44:04 elapsed
+Epoch  12,   7400/7502 batches;
+                      actor reward: 24.6711; critic loss: 0.022438;  2747 tokens/s; 4:44:28 elapsed
+Epoch  12,   7500/7502 batches;
+                      actor reward: 25.0847; critic loss: 0.020805;  2755 tokens/s; 4:44:52 elapsed
+Train sentence reward: 18.19
+Critic loss: 0.0108485
+Validation perplexity: 2.52
+Validation sentence reward: 50.51
+Validation corpus reward: 44.59
+Save model as /mnt/storage/divya/exam/rmodel/model_12_pretrain.pt
+
+* REINFORCE epoch *
+Actor optim lr: 0.0001; Critic optim lr: 0.001
+Pretrain critic...
+Epoch  13,    100/7502 batches;
+                      actor reward: 15.8942; critic loss: 0.009964;  2780 tokens/s; 4:45:23 elapsed
+Epoch  13,    200/7502 batches;
+                      actor reward: 16.5687; critic loss: 0.008405;  2688 tokens/s; 4:45:48 elapsed
+Epoch  13,    300/7502 batches;
+                      actor reward: 16.4192; critic loss: 0.007791;  2705 tokens/s; 4:46:12 elapsed
+Epoch  13,    400/7502 batches;
+                      actor reward: 16.4720; critic loss: 0.008048;  2760 tokens/s; 4:46:36 elapsed
+Epoch  13,    500/7502 batches;
+                      actor reward: 16.2481; critic loss: 0.007848;  2752 tokens/s; 4:47:00 elapsed
+Epoch  13,    600/7502 batches;
+                      actor reward: 16.9046; critic loss: 0.008988;  2730 tokens/s; 4:47:24 elapsed
+Epoch  13,    700/7502 batches;
+                      actor reward: 16.4240; critic loss: 0.008477;  2779 tokens/s; 4:47:48 elapsed
+Epoch  13,    800/7502 batches;
+                      actor reward: 16.5169; critic loss: 0.008240;  2703 tokens/s; 4:48:12 elapsed
+Epoch  13,    900/7502 batches;
+                      actor reward: 16.3901; critic loss: 0.008733;  2733 tokens/s; 4:48:36 elapsed
+Epoch  13,   1000/7502 batches;
+                      actor reward: 17.0301; critic loss: 0.009482;  2607 tokens/s; 4:49:01 elapsed
+Epoch  13,   1100/7502 batches;
+                      actor reward: 16.9182; critic loss: 0.009496;  2740 tokens/s; 4:49:25 elapsed
+Epoch  13,   1200/7502 batches;
+                      actor reward: 16.8590; critic loss: 0.011167;  2762 tokens/s; 4:49:49 elapsed
+Epoch  13,   1300/7502 batches;
+                      actor reward: 16.7250; critic loss: 0.008303;  2760 tokens/s; 4:50:12 elapsed
+Epoch  13,   1400/7502 batches;
+                      actor reward: 16.8123; critic loss: 0.008649;  2790 tokens/s; 4:50:35 elapsed
+Epoch  13,   1500/7502 batches;
+                      actor reward: 16.8448; critic loss: 0.009286;  2965 tokens/s; 4:50:58 elapsed
+Epoch  13,   1600/7502 batches;
+                      actor reward: 16.5161; critic loss: 0.008470;  2808 tokens/s; 4:51:21 elapsed
+Epoch  13,   1700/7502 batches;
+                      actor reward: 17.0303; critic loss: 0.009692;  2727 tokens/s; 4:51:45 elapsed
+Epoch  13,   1800/7502 batches;
+                      actor reward: 16.8123; critic loss: 0.008664;  2605 tokens/s; 4:52:10 elapsed
+Epoch  13,   1900/7502 batches;
+                      actor reward: 17.1975; critic loss: 0.009849;  2587 tokens/s; 4:52:35 elapsed
+Epoch  13,   2000/7502 batches;
+                      actor reward: 16.8691; critic loss: 0.008943;  2593 tokens/s; 4:53:00 elapsed
+Epoch  13,   2100/7502 batches;
+                      actor reward: 16.4950; critic loss: 0.008646;  2711 tokens/s; 4:53:24 elapsed
+Epoch  13,   2200/7502 batches;
+                      actor reward: 17.0323; critic loss: 0.009764;  2747 tokens/s; 4:53:48 elapsed
+Epoch  13,   2300/7502 batches;
+                      actor reward: 16.4566; critic loss: 0.008725;  2826 tokens/s; 4:54:12 elapsed
+Epoch  13,   2400/7502 batches;
+                      actor reward: 16.8698; critic loss: 0.009397;  2728 tokens/s; 4:54:36 elapsed
+Epoch  13,   2500/7502 batches;
+                      actor reward: 16.9525; critic loss: 0.012568;  2764 tokens/s; 4:55:00 elapsed
+Epoch  13,   2600/7502 batches;
+                      actor reward: 17.1050; critic loss: 0.014106;  2804 tokens/s; 4:55:24 elapsed
+Epoch  13,   2700/7502 batches;
+                      actor reward: 16.6641; critic loss: 0.011242;  2679 tokens/s; 4:55:48 elapsed
+Epoch  13,   2800/7502 batches;
+                      actor reward: 17.3633; critic loss: 0.013574;  2727 tokens/s; 4:56:12 elapsed
+Epoch  13,   2900/7502 batches;
+                      actor reward: 17.1356; critic loss: 0.011884;  2757 tokens/s; 4:56:36 elapsed
+Epoch  13,   3000/7502 batches;
+                      actor reward: 17.0961; critic loss: 0.012981;  2659 tokens/s; 4:57:00 elapsed
+Epoch  13,   3100/7502 batches;
+                      actor reward: 17.4376; critic loss: 0.014255;  2617 tokens/s; 4:57:25 elapsed
+Epoch  13,   3200/7502 batches;
+                      actor reward: 17.3418; critic loss: 0.012840;  2724 tokens/s; 4:57:49 elapsed
+Epoch  13,   3300/7502 batches;
+                      actor reward: 17.0229; critic loss: 0.013287;  2755 tokens/s; 4:58:13 elapsed
+Epoch  13,   3400/7502 batches;
+                      actor reward: 17.3779; critic loss: 0.012521;  2732 tokens/s; 4:58:38 elapsed
+Epoch  13,   3500/7502 batches;
+                      actor reward: 17.6832; critic loss: 0.013921;  2559 tokens/s; 4:59:03 elapsed
+Epoch  13,   3600/7502 batches;
+                      actor reward: 17.5692; critic loss: 0.016147;  2585 tokens/s; 4:59:28 elapsed
+Epoch  13,   3700/7502 batches;
+                      actor reward: 17.4348; critic loss: 0.015878;  2659 tokens/s; 4:59:53 elapsed
+Epoch  13,   3800/7502 batches;
+                      actor reward: 17.5210; critic loss: 0.019020;  2578 tokens/s; 5:00:19 elapsed
+Epoch  13,   3900/7502 batches;
+                      actor reward: 17.0455; critic loss: 0.017898;  2648 tokens/s; 5:00:44 elapsed
+Epoch  13,   4000/7502 batches;
+                      actor reward: 18.0278; critic loss: 0.014991;  2685 tokens/s; 5:01:08 elapsed
+Epoch  13,   4100/7502 batches;
+                      actor reward: 17.8810; critic loss: 0.014922;  2691 tokens/s; 5:01:33 elapsed
+Epoch  13,   4200/7502 batches;
+                      actor reward: 17.8131; critic loss: 0.032506;  2693 tokens/s; 5:01:57 elapsed
+Epoch  13,   4300/7502 batches;
+                      actor reward: 17.5729; critic loss: 0.017458;  2620 tokens/s; 5:02:22 elapsed
+Epoch  13,   4400/7502 batches;
+                      actor reward: 18.0968; critic loss: 0.015806;  2697 tokens/s; 5:02:47 elapsed
+Epoch  13,   4500/7502 batches;
+                      actor reward: 17.6907; critic loss: 0.014440;  2742 tokens/s; 5:03:11 elapsed
+Epoch  13,   4600/7502 batches;
+                      actor reward: 17.8423; critic loss: 0.014547;  2748 tokens/s; 5:03:35 elapsed
+Epoch  13,   4700/7502 batches;
+                      actor reward: 17.7405; critic loss: 0.015876;  2735 tokens/s; 5:03:59 elapsed
+Epoch  13,   4800/7502 batches;
+                      actor reward: 18.5117; critic loss: 0.015876;  2744 tokens/s; 5:04:23 elapsed
+Epoch  13,   4900/7502 batches;
+                      actor reward: 18.1572; critic loss: 0.014550;  2640 tokens/s; 5:04:48 elapsed
+Epoch  13,   5000/7502 batches;
+                      actor reward: 18.7181; critic loss: 0.018586;  2586 tokens/s; 5:05:13 elapsed
+Epoch  13,   5100/7502 batches;
+                      actor reward: 17.9072; critic loss: 0.015122;  2723 tokens/s; 5:05:37 elapsed
+Epoch  13,   5200/7502 batches;
+                      actor reward: 18.3153; critic loss: 0.017229;  2817 tokens/s; 5:06:01 elapsed
+Epoch  13,   5300/7502 batches;
+                      actor reward: 18.8862; critic loss: 0.017470;  2651 tokens/s; 5:06:25 elapsed
+Epoch  13,   5400/7502 batches;
+                      actor reward: 18.4923; critic loss: 0.015358;  2634 tokens/s; 5:06:50 elapsed
+Epoch  13,   5500/7502 batches;
+                      actor reward: 18.2341; critic loss: 0.016990;  2714 tokens/s; 5:07:15 elapsed
+Epoch  13,   5600/7502 batches;
+                      actor reward: 18.7712; critic loss: 0.016204;  2615 tokens/s; 5:07:40 elapsed
+Epoch  13,   5700/7502 batches;
+                      actor reward: 18.8674; critic loss: 0.016537;  2789 tokens/s; 5:08:03 elapsed
+Epoch  13,   5800/7502 batches;
+                      actor reward: 18.9608; critic loss: 0.017091;  2823 tokens/s; 5:08:26 elapsed
+Epoch  13,   5900/7502 batches;
+                      actor reward: 18.8336; critic loss: 0.016546;  2639 tokens/s; 5:08:51 elapsed
+Epoch  13,   6000/7502 batches;
+                      actor reward: 19.2615; critic loss: 0.018672;  2770 tokens/s; 5:09:15 elapsed
+Epoch  13,   6100/7502 batches;
+                      actor reward: 19.6621; critic loss: 0.015936;  2869 tokens/s; 5:09:38 elapsed
+Epoch  13,   6200/7502 batches;
+                      actor reward: 19.9257; critic loss: 0.017128;  2795 tokens/s; 5:10:02 elapsed
+Epoch  13,   6300/7502 batches;
+                      actor reward: 19.9097; critic loss: 0.017084;  2728 tokens/s; 5:10:26 elapsed
+Epoch  13,   6400/7502 batches;
+                      actor reward: 19.8636; critic loss: 0.016656;  2754 tokens/s; 5:10:49 elapsed
+Epoch  13,   6500/7502 batches;
+                      actor reward: 20.1739; critic loss: 0.017832;  2786 tokens/s; 5:11:13 elapsed
+Epoch  13,   6600/7502 batches;
+                      actor reward: 19.9769; critic loss: 0.020477;  2727 tokens/s; 5:11:37 elapsed
+Epoch  13,   6700/7502 batches;
+                      actor reward: 20.4697; critic loss: 0.019565;  2702 tokens/s; 5:12:01 elapsed
+Epoch  13,   6800/7502 batches;
+                      actor reward: 20.6003; critic loss: 0.019611;  2612 tokens/s; 5:12:27 elapsed
+Epoch  13,   6900/7502 batches;
+                      actor reward: 21.1487; critic loss: 0.021243;  2641 tokens/s; 5:12:51 elapsed
+Epoch  13,   7000/7502 batches;
+                      actor reward: 21.7077; critic loss: 0.020528;  2760 tokens/s; 5:13:15 elapsed
+Epoch  13,   7100/7502 batches;
+                      actor reward: 21.6396; critic loss: 0.021268;  2774 tokens/s; 5:13:39 elapsed
+Epoch  13,   7200/7502 batches;
+                      actor reward: 22.8418; critic loss: 0.023375;  2786 tokens/s; 5:14:03 elapsed
+Epoch  13,   7300/7502 batches;
+                      actor reward: 23.2097; critic loss: 0.023309;  2731 tokens/s; 5:14:27 elapsed
+Epoch  13,   7400/7502 batches;
+                      actor reward: 24.4544; critic loss: 0.027224;  2733 tokens/s; 5:14:51 elapsed
+Epoch  13,   7500/7502 batches;
+                      actor reward: 24.7888; critic loss: 0.030497;  2756 tokens/s; 5:15:15 elapsed
+Train sentence reward: 18.19
+Critic loss: 0.0146128
+Validation perplexity: 2.52
+Validation sentence reward: 50.51
+Validation corpus reward: 44.59
+Save model as /mnt/storage/divya/exam/rmodel/model_13_pretrain.pt
+
+* REINFORCE epoch *
+Actor optim lr: 0.0001; Critic optim lr: 0.001
+Pretrain critic...
+Epoch  14,    100/7502 batches;
+                      actor reward: 16.1011; critic loss: 0.011202;  2737 tokens/s; 5:15:47 elapsed
+Epoch  14,    200/7502 batches;
+                      actor reward: 16.5081; critic loss: 0.010905;  2746 tokens/s; 5:16:11 elapsed
+Epoch  14,    300/7502 batches;
+                      actor reward: 16.6273; critic loss: 0.010717;  2752 tokens/s; 5:16:35 elapsed
+Epoch  14,    400/7502 batches;
+                      actor reward: 16.3154; critic loss: 0.010380;  2729 tokens/s; 5:16:59 elapsed
+Epoch  14,    500/7502 batches;
+                      actor reward: 16.0867; critic loss: 0.009982;  2556 tokens/s; 5:17:25 elapsed
+Epoch  14,    600/7502 batches;
+                      actor reward: 16.6626; critic loss: 0.011530;  2563 tokens/s; 5:17:50 elapsed
+Epoch  14,    700/7502 batches;
+                      actor reward: 16.5878; critic loss: 0.012479;  2655 tokens/s; 5:18:15 elapsed
+Epoch  14,    800/7502 batches;
+                      actor reward: 16.7189; critic loss: 0.010682;  2739 tokens/s; 5:18:39 elapsed
+Epoch  14,    900/7502 batches;
+                      actor reward: 16.6303; critic loss: 0.011400;  2596 tokens/s; 5:19:04 elapsed
+Epoch  14,   1000/7502 batches;
+                      actor reward: 17.0073; critic loss: 0.013566;  2560 tokens/s; 5:19:30 elapsed
+Epoch  14,   1100/7502 batches;
+                      actor reward: 16.9668; critic loss: 0.011297;  2624 tokens/s; 5:19:55 elapsed
+Epoch  14,   1200/7502 batches;
+                      actor reward: 16.8369; critic loss: 0.011046;  2644 tokens/s; 5:20:19 elapsed
+Epoch  14,   1300/7502 batches;
+                      actor reward: 16.5630; critic loss: 0.011230;  2698 tokens/s; 5:20:44 elapsed
+Epoch  14,   1400/7502 batches;
+                      actor reward: 16.5744; critic loss: 0.011204;  2690 tokens/s; 5:21:08 elapsed
+Epoch  14,   1500/7502 batches;
+                      actor reward: 16.6518; critic loss: 0.014730;  2725 tokens/s; 5:21:32 elapsed
+Epoch  14,   1600/7502 batches;
+                      actor reward: 16.8734; critic loss: 0.011736;  2795 tokens/s; 5:21:56 elapsed
+Epoch  14,   1700/7502 batches;
+                      actor reward: 17.2000; critic loss: 0.014037;  3245 tokens/s; 5:22:16 elapsed
+Epoch  14,   1800/7502 batches;
+                      actor reward: 17.0569; critic loss: 0.011071;  3693 tokens/s; 5:22:33 elapsed
+Epoch  14,   1900/7502 batches;
+                      actor reward: 16.7788; critic loss: 0.012404;  3498 tokens/s; 5:22:52 elapsed
+Epoch  14,   2000/7502 batches;
+                      actor reward: 17.0310; critic loss: 0.013730;  3785 tokens/s; 5:23:09 elapsed
+Epoch  14,   2100/7502 batches;
+                      actor reward: 16.9263; critic loss: 0.014034;  3319 tokens/s; 5:23:29 elapsed
+Epoch  14,   2200/7502 batches;
+                      actor reward: 17.0862; critic loss: 0.011275;  3437 tokens/s; 5:23:48 elapsed
+Epoch  14,   2300/7502 batches;
+                      actor reward: 16.5737; critic loss: 0.010192;  3510 tokens/s; 5:24:07 elapsed
+Epoch  14,   2400/7502 batches;
+                      actor reward: 16.7610; critic loss: 0.011306;  3282 tokens/s; 5:24:27 elapsed
+Epoch  14,   2500/7502 batches;
+                      actor reward: 17.0237; critic loss: 0.010073;  3271 tokens/s; 5:24:47 elapsed
+Epoch  14,   2600/7502 batches;
+                      actor reward: 16.7192; critic loss: 0.010236;  3308 tokens/s; 5:25:07 elapsed
+Epoch  14,   2700/7502 batches;
+                      actor reward: 17.1557; critic loss: 0.011176;  3374 tokens/s; 5:25:27 elapsed
+Epoch  14,   2800/7502 batches;
+                      actor reward: 17.6214; critic loss: 0.012450;  3546 tokens/s; 5:25:45 elapsed
+Epoch  14,   2900/7502 batches;
+                      actor reward: 17.2426; critic loss: 0.011603;  3673 tokens/s; 5:26:03 elapsed
+Epoch  14,   3000/7502 batches;
+                      actor reward: 17.1403; critic loss: 0.012142;  3696 tokens/s; 5:26:20 elapsed
+Epoch  14,   3100/7502 batches;
+                      actor reward: 17.3049; critic loss: 0.013476;  3715 tokens/s; 5:26:38 elapsed
+Epoch  14,   3200/7502 batches;
+                      actor reward: 17.0956; critic loss: 0.012910;  3781 tokens/s; 5:26:55 elapsed
+Epoch  14,   3300/7502 batches;
+                      actor reward: 17.3169; critic loss: 0.011185;  3225 tokens/s; 5:27:16 elapsed
+Epoch  14,   3400/7502 batches;
+                      actor reward: 17.4263; critic loss: 0.011359;  3619 tokens/s; 5:27:34 elapsed
+Epoch  14,   3500/7502 batches;
+                      actor reward: 17.9053; critic loss: 0.013300;  3718 tokens/s; 5:27:52 elapsed
+Epoch  14,   3600/7502 batches;
+                      actor reward: 17.1837; critic loss: 0.011060;  3272 tokens/s; 5:28:12 elapsed
+Epoch  14,   3700/7502 batches;
+                      actor reward: 17.1332; critic loss: 0.011533;  3620 tokens/s; 5:28:30 elapsed
+Epoch  14,   3800/7502 batches;
+                      actor reward: 17.4538; critic loss: 0.014839;  3686 tokens/s; 5:28:48 elapsed
+Epoch  14,   3900/7502 batches;
+                      actor reward: 17.2844; critic loss: 0.012848;  3682 tokens/s; 5:29:06 elapsed
+Epoch  14,   4000/7502 batches;
+                      actor reward: 18.0661; critic loss: 0.011663;  3698 tokens/s; 5:29:24 elapsed
+Epoch  14,   4100/7502 batches;
+                      actor reward: 17.6750; critic loss: 0.011570;  3717 tokens/s; 5:29:42 elapsed
+Epoch  14,   4200/7502 batches;
+                      actor reward: 18.0221; critic loss: 0.012569;  3389 tokens/s; 5:30:01 elapsed
+Epoch  14,   4300/7502 batches;
+                      actor reward: 17.6192; critic loss: 0.011606;  3628 tokens/s; 5:30:19 elapsed
+Epoch  14,   4400/7502 batches;
+                      actor reward: 17.8307; critic loss: 0.013667;  3694 tokens/s; 5:30:37 elapsed
+Epoch  14,   4500/7502 batches;
+                      actor reward: 17.8767; critic loss: 0.012356;  3746 tokens/s; 5:30:55 elapsed
+Epoch  14,   4600/7502 batches;
+                      actor reward: 17.9391; critic loss: 0.012974;  3707 tokens/s; 5:31:13 elapsed
+Epoch  14,   4700/7502 batches;
+                      actor reward: 18.1371; critic loss: 0.013541;  3698 tokens/s; 5:31:30 elapsed
+Epoch  14,   4800/7502 batches;
+                      actor reward: 18.3923; critic loss: 0.014131;  3732 tokens/s; 5:31:48 elapsed
+Epoch  14,   4900/7502 batches;
+                      actor reward: 18.3134; critic loss: 0.012576;  3710 tokens/s; 5:32:06 elapsed
+Epoch  14,   5000/7502 batches;
+                      actor reward: 18.4672; critic loss: 0.012146;  3676 tokens/s; 5:32:24 elapsed
+Epoch  14,   5100/7502 batches;
+                      actor reward: 18.0302; critic loss: 0.012183;  3725 tokens/s; 5:32:42 elapsed
+Epoch  14,   5200/7502 batches;
+                      actor reward: 18.0105; critic loss: 0.012640;  3715 tokens/s; 5:32:59 elapsed
+Epoch  14,   5300/7502 batches;
+                      actor reward: 18.9138; critic loss: 0.013092;  3372 tokens/s; 5:33:19 elapsed
+Epoch  14,   5400/7502 batches;
+                      actor reward: 18.7023; critic loss: 0.012551;  3571 tokens/s; 5:33:37 elapsed
+Epoch  14,   5500/7502 batches;
+                      actor reward: 18.1991; critic loss: 0.012336;  3819 tokens/s; 5:33:54 elapsed
+Epoch  14,   5600/7502 batches;
+                      actor reward: 19.0269; critic loss: 0.012749;  3817 tokens/s; 5:34:12 elapsed
+Epoch  14,   5700/7502 batches;
+                      actor reward: 18.6127; critic loss: 0.013678;  3691 tokens/s; 5:34:29 elapsed
+Epoch  14,   5800/7502 batches;
+                      actor reward: 19.1778; critic loss: 0.013239;  3460 tokens/s; 5:34:48 elapsed
+Epoch  14,   5900/7502 batches;
+                      actor reward: 18.7447; critic loss: 0.014887;  3739 tokens/s; 5:35:06 elapsed
+Epoch  14,   6000/7502 batches;
+                      actor reward: 19.2096; critic loss: 0.014390;  3717 tokens/s; 5:35:24 elapsed
+Epoch  14,   6100/7502 batches;
+                      actor reward: 19.5554; critic loss: 0.017694;  3715 tokens/s; 5:35:41 elapsed
+Epoch  14,   6200/7502 batches;
+                      actor reward: 19.7247; critic loss: 0.014533;  3451 tokens/s; 5:36:00 elapsed
+Epoch  14,   6300/7502 batches;
+                      actor reward: 19.5720; critic loss: 0.014478;  3680 tokens/s; 5:36:18 elapsed
+Epoch  14,   6400/7502 batches;
+                      actor reward: 19.6377; critic loss: 0.015875;  3790 tokens/s; 5:36:35 elapsed
+Epoch  14,   6500/7502 batches;
+                      actor reward: 20.1159; critic loss: 0.015072;  3732 tokens/s; 5:36:53 elapsed
+Epoch  14,   6600/7502 batches;
+                      actor reward: 20.2842; critic loss: 0.017240;  3655 tokens/s; 5:37:11 elapsed
+Epoch  14,   6700/7502 batches;
+                      actor reward: 20.7446; critic loss: 0.016740;  3648 tokens/s; 5:37:29 elapsed
+Epoch  14,   6800/7502 batches;
+                      actor reward: 20.3860; critic loss: 0.015356;  3690 tokens/s; 5:37:47 elapsed
+Epoch  14,   6900/7502 batches;
+                      actor reward: 21.1984; critic loss: 0.016565;  3688 tokens/s; 5:38:05 elapsed
+Epoch  14,   7000/7502 batches;
+                      actor reward: 21.8260; critic loss: 0.017587;  3691 tokens/s; 5:38:23 elapsed
+Epoch  14,   7100/7502 batches;
+                      actor reward: 21.6810; critic loss: 0.019456;  3633 tokens/s; 5:38:41 elapsed
+Epoch  14,   7200/7502 batches;
+                      actor reward: 23.0148; critic loss: 0.023681;  3534 tokens/s; 5:38:59 elapsed
+Epoch  14,   7300/7502 batches;
+                      actor reward: 23.1521; critic loss: 0.019607;  3697 tokens/s; 5:39:17 elapsed
+Epoch  14,   7400/7502 batches;
+                      actor reward: 24.1605; critic loss: 0.021522;  3442 tokens/s; 5:39:36 elapsed
+Epoch  14,   7500/7502 batches;
+                      actor reward: 25.1568; critic loss: 0.023566;  3342 tokens/s; 5:39:56 elapsed
+Train sentence reward: 18.20
+Critic loss: 0.0133561
+Validation perplexity: 2.52
+Validation sentence reward: 50.51
+Validation corpus reward: 44.59
+Save model as /mnt/storage/divya/exam/rmodel/model_14_pretrain.pt
+
+* REINFORCE epoch *
+Actor optim lr: 0.0001; Critic optim lr: 0.001
+Pretrain critic...
+Epoch  15,    100/7502 batches;
+                      actor reward: 16.2654; critic loss: 0.011450;  3594 tokens/s; 5:40:22 elapsed
+Epoch  15,    200/7502 batches;
+                      actor reward: 16.6210; critic loss: 0.009297;  3711 tokens/s; 5:40:40 elapsed
+Epoch  15,    300/7502 batches;
+                      actor reward: 16.6127; critic loss: 0.008610;  3309 tokens/s; 5:41:00 elapsed
+Epoch  15,    400/7502 batches;
+                      actor reward: 16.4583; critic loss: 0.009152;  3354 tokens/s; 5:41:19 elapsed
+Epoch  15,    500/7502 batches;
+                      actor reward: 16.4800; critic loss: 0.009276;  3406 tokens/s; 5:41:39 elapsed
+Epoch  15,    600/7502 batches;
+                      actor reward: 16.8127; critic loss: 0.009469;  3292 tokens/s; 5:41:59 elapsed
+Epoch  15,    700/7502 batches;
+                      actor reward: 16.5609; critic loss: 0.009716;  3564 tokens/s; 5:42:17 elapsed
+Epoch  15,    800/7502 batches;
+                      actor reward: 16.4883; critic loss: 0.008990;  3151 tokens/s; 5:42:38 elapsed
+Epoch  15,    900/7502 batches;
+                      actor reward: 16.7156; critic loss: 0.011575;  3587 tokens/s; 5:42:56 elapsed
+Epoch  15,   1000/7502 batches;
+                      actor reward: 16.9504; critic loss: 0.010397;  3669 tokens/s; 5:43:14 elapsed
+Epoch  15,   1100/7502 batches;
+                      actor reward: 17.3248; critic loss: 0.010823;  3635 tokens/s; 5:43:32 elapsed
+Epoch  15,   1200/7502 batches;
+                      actor reward: 16.6601; critic loss: 0.009601;  3622 tokens/s; 5:43:50 elapsed
+Epoch  15,   1300/7502 batches;
+                      actor reward: 16.7873; critic loss: 0.009806;  3498 tokens/s; 5:44:08 elapsed
+Epoch  15,   1400/7502 batches;
+                      actor reward: 16.8454; critic loss: 0.010353;  3647 tokens/s; 5:44:26 elapsed
+Epoch  15,   1500/7502 batches;
+                      actor reward: 17.0359; critic loss: 0.010453;  3749 tokens/s; 5:44:44 elapsed
+Epoch  15,   1600/7502 batches;
+                      actor reward: 16.6611; critic loss: 0.008623;  3563 tokens/s; 5:45:02 elapsed
+Epoch  15,   1700/7502 batches;
+                      actor reward: 17.0161; critic loss: 0.009675;  3486 tokens/s; 5:45:21 elapsed
+Epoch  15,   1800/7502 batches;
+                      actor reward: 16.7923; critic loss: 0.008798;  3629 tokens/s; 5:45:39 elapsed
+Epoch  15,   1900/7502 batches;
+                      actor reward: 16.5658; critic loss: 0.008437;  3689 tokens/s; 5:45:57 elapsed
+Epoch  15,   2000/7502 batches;
+                      actor reward: 16.8369; critic loss: 0.009953;  3678 tokens/s; 5:46:14 elapsed
+Epoch  15,   2100/7502 batches;
+                      actor reward: 16.6962; critic loss: 0.008761;  3668 tokens/s; 5:46:32 elapsed
+Epoch  15,   2200/7502 batches;
+                      actor reward: 17.0529; critic loss: 0.010346;  3744 tokens/s; 5:46:50 elapsed
+Epoch  15,   2300/7502 batches;
+                      actor reward: 16.4403; critic loss: 0.009240;  3701 tokens/s; 5:47:08 elapsed
+Epoch  15,   2400/7502 batches;
+                      actor reward: 17.1818; critic loss: 0.010239;  3690 tokens/s; 5:47:25 elapsed
+Epoch  15,   2500/7502 batches;
+                      actor reward: 16.9213; critic loss: 0.009209;  3718 tokens/s; 5:47:43 elapsed
+Epoch  15,   2600/7502 batches;
+                      actor reward: 17.0919; critic loss: 0.010225;  3743 tokens/s; 5:48:01 elapsed
+Epoch  15,   2700/7502 batches;
+                      actor reward: 16.9798; critic loss: 0.009493;  3565 tokens/s; 5:48:19 elapsed
+Epoch  15,   2800/7502 batches;
+                      actor reward: 17.6736; critic loss: 0.010237;  3276 tokens/s; 5:48:39 elapsed
+Epoch  15,   2900/7502 batches;
+                      actor reward: 16.9548; critic loss: 0.010621;  3303 tokens/s; 5:48:59 elapsed
+Epoch  15,   3000/7502 batches;
+                      actor reward: 17.2374; critic loss: 0.013074;  3694 tokens/s; 5:49:16 elapsed
+Epoch  15,   3100/7502 batches;
+                      actor reward: 17.4391; critic loss: 0.012197;  3530 tokens/s; 5:49:35 elapsed
+Epoch  15,   3200/7502 batches;
+                      actor reward: 17.3372; critic loss: 0.012187;  3387 tokens/s; 5:49:54 elapsed
+Epoch  15,   3300/7502 batches;
+                      actor reward: 17.4270; critic loss: 0.012959;  3839 tokens/s; 5:50:12 elapsed
+Epoch  15,   3400/7502 batches;
+                      actor reward: 17.3298; critic loss: 0.012600;  3715 tokens/s; 5:50:29 elapsed
+Epoch  15,   3500/7502 batches;
+                      actor reward: 17.7729; critic loss: 0.012436;  3686 tokens/s; 5:50:47 elapsed
+Epoch  15,   3600/7502 batches;
+                      actor reward: 17.5220; critic loss: 0.014545;  3786 tokens/s; 5:51:04 elapsed
+Epoch  15,   3700/7502 batches;
+                      actor reward: 17.1932; critic loss: 0.011221;  3544 tokens/s; 5:51:23 elapsed
+Epoch  15,   3800/7502 batches;
+                      actor reward: 17.7486; critic loss: 0.012700;  3652 tokens/s; 5:51:41 elapsed
+Epoch  15,   3900/7502 batches;
+                      actor reward: 17.1248; critic loss: 0.012169;  3766 tokens/s; 5:51:59 elapsed
+Epoch  15,   4000/7502 batches;
+                      actor reward: 17.8227; critic loss: 0.013424;  3730 tokens/s; 5:52:16 elapsed
+Epoch  15,   4100/7502 batches;
+                      actor reward: 17.9471; critic loss: 0.012456;  3675 tokens/s; 5:52:34 elapsed
+Epoch  15,   4200/7502 batches;
+                      actor reward: 18.0833; critic loss: 0.013352;  3697 tokens/s; 5:52:52 elapsed
+Epoch  15,   4300/7502 batches;
+                      actor reward: 17.5147; critic loss: 0.011088;  3583 tokens/s; 5:53:10 elapsed
+Epoch  15,   4400/7502 batches;
+                      actor reward: 17.8060; critic loss: 0.012305;  3481 tokens/s; 5:53:29 elapsed
+Epoch  15,   4500/7502 batches;
+                      actor reward: 17.7699; critic loss: 0.011304;  3554 tokens/s; 5:53:48 elapsed
+Epoch  15,   4600/7502 batches;
+                      actor reward: 17.9515; critic loss: 0.011987;  3499 tokens/s; 5:54:07 elapsed
+Epoch  15,   4700/7502 batches;
+                      actor reward: 17.9998; critic loss: 0.012151;  3806 tokens/s; 5:54:24 elapsed
+Epoch  15,   4800/7502 batches;
+                      actor reward: 18.2965; critic loss: 0.012507;  3575 tokens/s; 5:54:43 elapsed
+Epoch  15,   4900/7502 batches;
+                      actor reward: 18.0951; critic loss: 0.011882;  3682 tokens/s; 5:55:01 elapsed
+Epoch  15,   5000/7502 batches;
+                      actor reward: 18.3391; critic loss: 0.012732;  3713 tokens/s; 5:55:19 elapsed
+Epoch  15,   5100/7502 batches;
+                      actor reward: 18.2411; critic loss: 0.012356;  3687 tokens/s; 5:55:36 elapsed
+Epoch  15,   5200/7502 batches;
+                      actor reward: 18.5431; critic loss: 0.013824;  3735 tokens/s; 5:55:54 elapsed
+Epoch  15,   5300/7502 batches;
+                      actor reward: 18.5968; critic loss: 0.012751;  3702 tokens/s; 5:56:12 elapsed
+Epoch  15,   5400/7502 batches;
+                      actor reward: 18.6514; critic loss: 0.012391;  3675 tokens/s; 5:56:30 elapsed
+Epoch  15,   5500/7502 batches;
+                      actor reward: 18.4190; critic loss: 0.013713;  3537 tokens/s; 5:56:48 elapsed
+Epoch  15,   5600/7502 batches;
+                      actor reward: 18.8225; critic loss: 0.013701;  3491 tokens/s; 5:57:07 elapsed
+Epoch  15,   5700/7502 batches;
+                      actor reward: 18.6990; critic loss: 0.016532;  3050 tokens/s; 5:57:29 elapsed
+Epoch  15,   5800/7502 batches;
+                      actor reward: 19.1701; critic loss: 0.014948;  3277 tokens/s; 5:57:49 elapsed
+Epoch  15,   5900/7502 batches;
+                      actor reward: 18.7937; critic loss: 0.013503;  3377 tokens/s; 5:58:08 elapsed
+Epoch  15,   6000/7502 batches;
+                      actor reward: 19.3007; critic loss: 0.015096;  3254 tokens/s; 5:58:28 elapsed
+Epoch  15,   6100/7502 batches;
+                      actor reward: 19.4911; critic loss: 0.014623;  3398 tokens/s; 5:58:48 elapsed
+Epoch  15,   6200/7502 batches;
+                      actor reward: 19.8958; critic loss: 0.014967;  3726 tokens/s; 5:59:05 elapsed
+Epoch  15,   6300/7502 batches;
+                      actor reward: 19.7646; critic loss: 0.015020;  3675 tokens/s; 5:59:23 elapsed
+Epoch  15,   6400/7502 batches;
+                      actor reward: 20.1067; critic loss: 0.015281;  3700 tokens/s; 5:59:41 elapsed
+Epoch  15,   6500/7502 batches;
+                      actor reward: 20.0499; critic loss: 0.015460;  3836 tokens/s; 5:59:58 elapsed
+Epoch  15,   6600/7502 batches;
+                      actor reward: 20.3452; critic loss: 0.017151;  3655 tokens/s; 6:00:16 elapsed
+Epoch  15,   6700/7502 batches;
+                      actor reward: 20.6617; critic loss: 0.016035;  3408 tokens/s; 6:00:36 elapsed
+Epoch  15,   6800/7502 batches;
+                      actor reward: 19.9903; critic loss: 0.015857;  3663 tokens/s; 6:00:54 elapsed
+Epoch  15,   6900/7502 batches;
+                      actor reward: 21.4133; critic loss: 0.019845;  3649 tokens/s; 6:01:12 elapsed
+Epoch  15,   7000/7502 batches;
+                      actor reward: 21.6280; critic loss: 0.017622;  3722 tokens/s; 6:01:29 elapsed
+Epoch  15,   7100/7502 batches;
+                      actor reward: 22.1136; critic loss: 0.019056;  3646 tokens/s; 6:01:47 elapsed
+Epoch  15,   7200/7502 batches;
+                      actor reward: 22.1985; critic loss: 0.019408;  3704 tokens/s; 6:02:05 elapsed
+Epoch  15,   7300/7502 batches;
+                      actor reward: 23.5313; critic loss: 0.020592;  3731 tokens/s; 6:02:23 elapsed
+Epoch  15,   7400/7502 batches;
+                      actor reward: 24.4160; critic loss: 0.023305;  3777 tokens/s; 6:02:40 elapsed
+Epoch  15,   7500/7502 batches;
+                      actor reward: 24.8232; critic loss: 0.022577;  3740 tokens/s; 6:02:58 elapsed
+Train sentence reward: 18.23
+Critic loss: 0.0126667
+Validation perplexity: 2.52
+Validation sentence reward: 50.51
+Validation corpus reward: 44.59
+Save model as /mnt/storage/divya/exam/rmodel/model_15_pretrain.pt
+
+NMTModel(
+  (encoder): Encoder(
+    (word_lut): Embedding(50004, 500, padding_idx=0)
+    (rnn): LSTM(500, 500)
+  )
+  (decoder): Decoder(
+    (word_lut): Embedding(50004, 500, padding_idx=0)
+    (rnn): StackedLSTM(
+      (dropout): Dropout(p=0, inplace=False)
+      (layers): ModuleList(
+        (0): LSTMCell(1000, 500)
+      )
+    )
+    (attn): GlobalAttention(
+      (linear_in): Linear(in_features=500, out_features=500, bias=False)
+      (sm): Softmax(dim=None)
+      (linear_out): Linear(in_features=1000, out_features=500, bias=False)
+      (tanh): Tanh()
+    )
+    (dropout): Dropout(p=0, inplace=False)
+  )
+  (generator): BaseGenerator(
+    (generator): Linear(in_features=500, out_features=50004, bias=True)
+  )
+)
+
+NMTModel(
+  (encoder): Encoder(
+    (word_lut): Embedding(50004, 500, padding_idx=0)
+    (rnn): LSTM(500, 500)
+  )
+  (decoder): Decoder(
+    (word_lut): Embedding(50004, 500, padding_idx=0)
+    (rnn): StackedLSTM(
+      (dropout): Dropout(p=0, inplace=False)
+      (layers): ModuleList(
+        (0): LSTMCell(1000, 500)
+      )
+    )
+    (attn): GlobalAttention(
+      (linear_in): Linear(in_features=500, out_features=500, bias=False)
+      (sm): Softmax(dim=None)
+      (linear_out): Linear(in_features=1000, out_features=500, bias=False)
+      (tanh): Tanh()
+    )
+    (dropout): Dropout(p=0, inplace=False)
+  )
+  (generator): BaseGenerator(
+    (generator): Linear(in_features=500, out_features=1, bias=True)
+  )
+)
