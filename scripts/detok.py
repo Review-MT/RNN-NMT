@@ -13,9 +13,9 @@ tokenizer = AutoTokenizer.from_pretrained(
 # Files
 # --------------------------------------------------
 
-input_file = "/mnt/storage/divya/exam/bbmodel/model_3.valid.pred"
+input_file = "/mnt/storage/divya/exam/bbmodel/model_10.test.pred"
 
-output_file = "/mnt/storage/divya/exam/bbmodel/prediction.detok"
+output_file = "/mnt/storage/divya/exam/bbmodel/out_10.test.detok"
 
 # --------------------------------------------------
 # Detokenize

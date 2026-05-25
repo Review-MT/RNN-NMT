@@ -12,8 +12,8 @@ export CUDA_VISIBLE_DEVICES=0
 #
 # ============================================================
 
-SAVE_DIR="/mnt/storage/divya/exam/rmodel" #$2
-EMB_TYPE="random" #${3:-random}
+SAVE_DIR="/mnt/storage/divya/exam/bfreezmodel" #$2
+EMB_TYPE="bert" #${3:-random}
 
 DATA_DIR="/mnt/storage/divya/exam/rnndata" #DATA/$lang
 
@@ -48,7 +48,7 @@ mkdir -p $SAVE_DIR
 # DATA FILE
 # ============================================================
 
-DATA_FILE=$DATA_DIR/rprocessed_all-train.pt
+DATA_FILE=$DATA_DIR/bprocessed_all-train.pt
 
 # ============================================================
 # RANDOM EMBEDDINGS

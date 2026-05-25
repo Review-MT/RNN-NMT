@@ -15,7 +15,7 @@ python ../preprocess.py \
   -train_pg_tgt $DATA_PREP/clean.train.$tgt \
   -valid_src $DATA_PREP/valid.$src \
   -valid_tgt $DATA_PREP/valid.$tgt \
-  -test_src $DATA_PREP/valid.$src \
-  -test_tgt $DATA_PREP/valid.$tgt \
+  -test_src $DATA_PREP/test.$src \
+  -test_tgt $DATA_PREP/test.$tgt \
   -save_data $DATA_HOME/bprocessed_all \
   -embedding_type bert
