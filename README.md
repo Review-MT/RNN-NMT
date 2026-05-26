@@ -37,6 +37,28 @@ Bash
 bash scripts/random_preprocess.sh (random embeddings)
 bash scripts/pretrained_preprocess.sh (pretrained embeddings)
 
+
+## Configuration & Embeddings
+
+The pipeline supports both standard learned embeddings and pretrained contextual embeddings (BERT) for cross-lingual configurations (e.g., Hindi to Marathi).
+
+### Embedding Parameters
+
+You can configure the text representation layer using the following command-line arguments:
+
+| Argument | Type / Choices | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `-embedding_type` | `random`, `bert` | `random` | **`random`**: Initializes an embedding matrix from scratch to be trained with the model.<br>**`bert`**: Leverages pretrained contextual BERT models for token representations. |
+| `-src_bert_model` | `str` (Path) | `"/mnt/storage/divya/exam/embeddings/hindi-bert-v2"` | The local file path or model identifier for the **source language** BERT model. |
+| `-tgt_bert_model` | `str` (Path) | `"/mnt/storage/divya/exam/embeddings/marathi-bert-v2"` | The local file path or model identifier for the **target language** BERT model. |
+
+### Usage Examples
+
+#### 1. Running with Default Random Embeddings
+If you do not specify an embedding type, the model defaults to training standard embeddings from scratch:
+```bash
+python train.py -embedding_type random
+
 3. Training the Model
 Once the data is processed, you can launch the training sequence. The pipeline supports standard sequence-to-sequence pretraining as well as Reinforcement Learning (AC) tuning.
 
