@@ -14,8 +14,9 @@ This directory contains the codebase for training and evaluating Neural Machine 
 │   ├── model/          # Encoder-Decoder and Attention architectures
 │   └── train/          # Trainers (Standard and Reinforce)
 ├── scripts/            # Bash execution scripts for the pipeline
-│   ├── preprocess.sh   # Data preprocessing entrypoint
+│   ├── random_preprocess.sh(random) or pretrained_preprocess.sh(pretrained)  # Data preprocessing entrypoint 
 │   └── pretrain.sh     # Model training execution script
+    └── test.sh         # Model evaluation execution script
 ├── preprocess.py       # Preprocessing Python entrypoint
 └── train.py            # Main training Python entrypoint
 
